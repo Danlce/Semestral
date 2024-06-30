@@ -1,4 +1,4 @@
-package grafica;
+
 
 import java.awt.EventQueue;
 
@@ -47,7 +47,7 @@ public class BibliotecaGUI extends JFrame {
 
         // Agregar la lista a un JScrollPane y añadirlo al JFrame
         JScrollPane scrollPane = new JScrollPane(listaLibros);
-        scrollPane.setBounds(-100, 11, 584, 361);
+        scrollPane.setBounds(0, 0, 584, 361);
         getContentPane().add(scrollPane);
 
         // Otros componentes como botones, campos de texto, etc.
