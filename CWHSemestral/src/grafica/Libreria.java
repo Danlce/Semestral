@@ -42,11 +42,15 @@ public class Libreria extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Libreria");
-		lblNewLabel.setBounds(202, 11, 46, 14);
+		lblNewLabel.setBounds(196, 11, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("New button");
 		btnNewButton.setBounds(24, 115, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Wilson es idiota");
+		btnNewButton_1.setBounds(192, 115, 131, 23);
+		contentPane.add(btnNewButton_1);
 	}
 }
