@@ -7,8 +7,8 @@ public class Main {
         BibliotecaGUI biblioteca = new BibliotecaGUI();
 
         // Ejemplo de creación de libros y clientes
-        Libro libro1 = new Libro("El Señor de los Anillos", "J.R.R. Tolkien", "Fantasia", 1, 1954, "Editorial Tirant Lo Blanch", "inglés", 24.99);
-        Libro libro2 = new Libro("Cien años de soledad", "Gabriel García Márquez", "Realismo mágico", 2, 1967, "Editorial Sudamericana", "español", 19.99);
+        Libro libro1 = new Libro("El Señor de los Anillos", "J.R.R. Tolkien", "Fantasia", 0001, 1954, "Editorial Tirant Lo Blanch", "inglés", 24.99);
+        Libro libro2 = new Libro("Cien años de soledad", "Gabriel García Márquez", "Realismo mágico", 0002, 1967, "Editorial Sudamericana", "español", 19.99);
 
         Cliente cliente1 = new Cliente("Juan Pérez", 1001);
         Cliente cliente2 = new Cliente("María Gómez", 1002);
