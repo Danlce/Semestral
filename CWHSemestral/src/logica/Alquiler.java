@@ -17,4 +17,9 @@ public class Alquiler {
     public Cliente getCliente() {
         return cliente;
     }
+
+    @Override
+    public String toString() {
+        return libro.getTitulo() + " - " + cliente.getNombre();
+    }
 }

@@ -17,4 +17,9 @@ public class Cliente {
     public int getCodigo() {
         return codigo;
     }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + codigo + ")";
+    }
 }
