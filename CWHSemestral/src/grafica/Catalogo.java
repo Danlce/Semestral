@@ -205,7 +205,9 @@ public class Catalogo extends JFrame {
         contentPane.add(list);
 
         // Supongamos que tienes una lista de libros predefinida
-      
+        libros = new ArrayList<>();
+        libros.add(new Libro("Autor1", "Titulo1", "Genero1", "123", "2020"));
+        libros.add(new Libro("Autor2", "Titulo2", "Genero2", "456", "2021"));
         // Agregar más libros según sea necesario
     }
 
