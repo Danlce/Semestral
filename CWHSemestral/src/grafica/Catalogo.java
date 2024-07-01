@@ -205,7 +205,7 @@ public class Catalogo extends JFrame {
         contentPane.add(list);
 
         // Supongamos que tienes una lista de libros predefinida
-      
+       
         // Agregar más libros según sea necesario
     }
 
