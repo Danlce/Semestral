@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistrosDeClientes extends JFrame {
 
@@ -38,7 +40,7 @@ public class RegistrosDeClientes extends JFrame {
 	 */
 	public RegistrosDeClientes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 691, 424);
+		setBounds(100, 100, 691, 467);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -51,7 +53,7 @@ public class RegistrosDeClientes extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JList list = new JList();
-		list.setBounds(24, 110, 641, 204);
+		list.setBounds(24, 110, 641, 229);
 		contentPane.add(list);
 		
 		JLabel lblNewLabel_1 = new JLabel("Codigo:");
@@ -70,11 +72,19 @@ public class RegistrosDeClientes extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Editar");
-		btnNewButton_1.setBounds(24, 337, 89, 23);
+		btnNewButton_1.setBounds(576, 350, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Agregar");
-		btnNewButton_1_1.setBounds(576, 337, 89, 23);
+		btnNewButton_1_1.setBounds(576, 384, 89, 23);
 		contentPane.add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1_2 = new JButton("Regresar");
+		btnNewButton_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1_2.setBounds(24, 384, 89, 23);
+		contentPane.add(btnNewButton_1_2);
 	}
 }

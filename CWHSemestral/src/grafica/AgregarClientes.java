@@ -41,7 +41,7 @@ public class AgregarClientes extends JFrame {
      */
     public AgregarClientes() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 691, 418);
+        setBounds(100, 100, 691, 420);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -50,7 +50,7 @@ public class AgregarClientes extends JFrame {
 
         JLabel lblNewLabel = new JLabel("Agregar Cliente Nuevo");
         lblNewLabel.setFont(new Font("Vivaldi", Font.PLAIN, 31));
-        lblNewLabel.setBounds(76, 22, 315, 59);
+        lblNewLabel.setBounds(76, 21, 315, 59);
         contentPane.add(lblNewLabel);
 
         JLabel lblNewLabel_1 = new JLabel("Nombre:");
@@ -84,8 +84,16 @@ public class AgregarClientes extends JFrame {
         contentPane.add(textFieldDireccion);
 
         JButton btnAgregar = new JButton("Agregar Cliente");
-        btnAgregar.setBounds(558, 329, 150, 23);
+        btnAgregar.setBounds(545, 335, 120, 23);
         contentPane.add(btnAgregar);
+        
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnRegresar.setBounds(23, 335, 93, 23);
+        contentPane.add(btnRegresar);
 
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
