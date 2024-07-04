@@ -40,7 +40,7 @@ public class RegistrosDeClientes extends JFrame {
 	 */
 	public RegistrosDeClientes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 691, 467);
+		setBounds(100, 100, 700, 467);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -56,7 +56,7 @@ public class RegistrosDeClientes extends JFrame {
 		list.setBounds(24, 110, 641, 229);
 		contentPane.add(list);
 		
-		JLabel lblNewLabel_1 = new JLabel("Codigo:");
+		JLabel lblNewLabel_1 = new JLabel("Nombre:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(84, 72, 82, 27);
 		contentPane.add(lblNewLabel_1);
