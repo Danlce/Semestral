@@ -88,11 +88,11 @@ public class EditarClientesActuales extends JFrame {
 		contentPane.add(lblDireccion);
 		
 		btnRegresar = new JButton("Regresar");
-		btnRegresar.setBounds(19, 329, 93, 23);
+		btnRegresar.setBounds(34, 329, 93, 23);
 		contentPane.add(btnRegresar);
 		
 		btnGuardarCambios = new JButton("Guardar Cambios");
-		btnGuardarCambios.setBounds(544, 329, 120, 23);
+		btnGuardarCambios.setBounds(529, 329, 120, 23);
 		contentPane.add(btnGuardarCambios);
 		
 		JList list = new JList();

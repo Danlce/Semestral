@@ -87,7 +87,7 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		List list = new List();
-		list.setBounds(153, 128, 378, 237);
+		list.setBounds(153, 128, 501, 237);
 		contentPane.add(list);
 		
 		textField = new JTextField();

@@ -65,11 +65,11 @@ public class AlquilarLibros extends JFrame {
         contentPane.add(lblNewLabel_1_1_3);
 
         listClientes = new JList<>();
-        listClientes.setBounds(28, 124, 317, 165);
+        listClientes.setBounds(38, 124, 328, 165);
         contentPane.add(listClientes);
 
         JList<String> listLibros = new JList<>();
-        listLibros.setBounds(376, 47, 263, 275);
+        listLibros.setBounds(386, 47, 263, 275);
         contentPane.add(listLibros);
 
         JLabel lblNewLabel_1_1_2_1 = new JLabel("Lista de Clientes Actuales");
@@ -99,6 +99,10 @@ public class AlquilarLibros extends JFrame {
         JButton btnAlquilar = new JButton("Alquilar");
         btnAlquilar.setBounds(546, 378, 93, 23);
         contentPane.add(btnAlquilar);
+        
+        JButton btnRegistroDeClientes = new JButton("Registro de Clientes");
+        btnRegistroDeClientes.setBounds(376, 332, 130, 23);
+        contentPane.add(btnRegistroDeClientes);
 
         // Cargar datos de clientes
         cargarClientes();

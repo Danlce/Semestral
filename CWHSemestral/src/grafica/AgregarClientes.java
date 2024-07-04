@@ -84,8 +84,16 @@ public class AgregarClientes extends JFrame {
         contentPane.add(textFieldDireccion);
 
         JButton btnAgregar = new JButton("Agregar Cliente");
-        btnAgregar.setBounds(558, 329, 150, 23);
+        btnAgregar.setBounds(526, 327, 107, 23);
         contentPane.add(btnAgregar);
+        
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnRegresar.setBounds(35, 327, 84, 23);
+        contentPane.add(btnRegresar);
 
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

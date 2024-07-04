@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 
 public class Catalogo extends JFrame {
 
@@ -43,19 +44,19 @@ public class Catalogo extends JFrame {
      */
     public Catalogo() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 555, 384);
+        setBounds(100, 100, 690, 420);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         textField = new JTextField();
-        textField.setBounds(155, 46, 179, 20);
+        textField.setBounds(139, 84, 259, 20);
         contentPane.add(textField);
         textField.setColumns(10);
 
         JRadioButton rdbtnAutor = new JRadioButton("Por autor");
-        rdbtnAutor.setBounds(43, 90, 109, 23);
+        rdbtnAutor.setBounds(32, 146, 73, 23);
         contentPane.add(rdbtnAutor);
         rdbtnAutor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -68,7 +69,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnGenero = new JRadioButton("Por género");
-        rdbtnGenero.setBounds(155, 90, 109, 23);
+        rdbtnGenero.setBounds(32, 120, 109, 23);
         contentPane.add(rdbtnGenero);
         rdbtnGenero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +82,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnCodigo = new JRadioButton("Por código");
-        rdbtnCodigo.setBounds(266, 90, 109, 23);
+        rdbtnCodigo.setBounds(107, 146, 80, 23);
         contentPane.add(rdbtnCodigo);
         rdbtnCodigo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -94,7 +95,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnAnio = new JRadioButton("Por año");
-        rdbtnAnio.setBounds(377, 90, 109, 23);
+        rdbtnAnio.setBounds(189, 146, 63, 23);
         contentPane.add(rdbtnAnio);
         rdbtnAnio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +108,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnEditorial = new JRadioButton("Por editorial");
-        rdbtnEditorial.setBounds(43, 116, 109, 23);
+        rdbtnEditorial.setBounds(254, 146, 88, 23);
         contentPane.add(rdbtnEditorial);
         rdbtnEditorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -120,7 +121,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnIdioma = new JRadioButton("Por idioma");
-        rdbtnIdioma.setBounds(155, 116, 109, 23);
+        rdbtnIdioma.setBounds(344, 146, 80, 23);
         contentPane.add(rdbtnIdioma);
         rdbtnIdioma.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -133,7 +134,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnPrecio = new JRadioButton("Por precio");
-        rdbtnPrecio.setBounds(266, 116, 109, 23);
+        rdbtnPrecio.setBounds(426, 146, 73, 23);
         contentPane.add(rdbtnPrecio);
         rdbtnPrecio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +147,7 @@ public class Catalogo extends JFrame {
         });
 
         JRadioButton rdbtnDisponible = new JRadioButton("Por disponibilidad");
-        rdbtnDisponible.setBounds(377, 116, 151, 23);
+        rdbtnDisponible.setBounds(501, 146, 109, 23);
         contentPane.add(rdbtnDisponible);
         rdbtnDisponible.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -159,7 +160,7 @@ public class Catalogo extends JFrame {
         });
 
         JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setBounds(339, 45, 89, 23);
+        btnBuscar.setBounds(410, 81, 89, 23);
         contentPane.add(btnBuscar);
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -201,12 +202,18 @@ public class Catalogo extends JFrame {
         });
 
         list = new JList<String>();
-        list.setBounds(43, 156, 471, 178);
+        list.setBounds(22, 176, 630, 194);
         contentPane.add(list);
         
         JLabel lblNewLabel = new JLabel("Buscador:");
-        lblNewLabel.setBounds(97, 49, 86, 14);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        lblNewLabel.setBounds(67, 85, 73, 14);
         contentPane.add(lblNewLabel);
+        
+        JLabel lblCatalogoDeLibros = new JLabel("Catalogo de Libros");
+        lblCatalogoDeLibros.setFont(new Font("Vivaldi", Font.PLAIN, 31));
+        lblCatalogoDeLibros.setBounds(32, 30, 315, 38);
+        contentPane.add(lblCatalogoDeLibros);
 
         // Supongamos que tienes una lista de libros predefinida
        
