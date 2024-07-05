@@ -107,6 +107,10 @@ public class Catalogo extends JFrame {
         JButton btnMostrar = new JButton("Mostrar Detalles");
         btnMostrar.setBounds(519, 81, 120, 23);
         contentPane.add(btnMostrar);
+        
+        JButton btnBorrar = new JButton("Borrar");
+        btnBorrar.setBounds(410, 116, 89, 23);
+        contentPane.add(btnBorrar);
 
         // Action Listener para el botón Mostrar Detalles
         btnMostrar.addActionListener(new ActionListener() {
