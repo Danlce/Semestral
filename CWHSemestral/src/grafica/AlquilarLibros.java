@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.DefaultListModel;
 
+
 import sql.Conexion;
 
 public class AlquilarLibros extends JFrame {
@@ -20,6 +21,7 @@ public class AlquilarLibros extends JFrame {
     private JTextField textField_1;
     private JList<String> listClientes;
     private JList<String> listLibros;
+    private JDateChooser dateChooser;
 
     /**
      * Launch the application.
@@ -59,6 +61,11 @@ public class AlquilarLibros extends JFrame {
         lblNewLabel_1_1_3.setBounds(49, 314, 150, 20);
         contentPane.add(lblNewLabel_1_1_3);
 
+        // Configuración del JDateChooser
+        dateChooser = new JDateChooser();
+        dateChooser.setBounds(196, 316, 150, 20);
+        contentPane.add(dateChooser);
+
         listClientes = new JList<>();
         listClientes.setBounds(38, 124, 328, 165);
         contentPane.add(listClientes);
@@ -76,11 +83,6 @@ public class AlquilarLibros extends JFrame {
         lblNewLabel_1_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_1_2_1_1.setBounds(376, 21, 206, 20);
         contentPane.add(lblNewLabel_1_1_2_1_1);
-
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(196, 316, 99, 20);
-        contentPane.add(textField_1);
 
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.setBounds(28, 378, 93, 23);
