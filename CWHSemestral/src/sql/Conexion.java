@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+
+import logica.Libro; 
 
 public class Conexion {
     // Database connection details
@@ -89,22 +91,70 @@ public class Conexion {
             e.printStackTrace();
         }
     }
-    public void insertarLibro(String titulo, String autor, String año, String genero, String idioma, String precio) {
-        String sql = "INSERT INTO libros (titulo, autor, año, genero, idioma, precio) VALUES (?, ?, ?, ?, ?, ?)";
-
+    public void insertarLibro(String titulo, String autor, String anio, String genero, String idioma, String precio) {
+        String sql = "INSERT INTO libros (titulo, autor, año, genero, idioma, precio, disponible) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
         try (Connection connection = conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, titulo);
             preparedStatement.setString(2, autor);
-            preparedStatement.setString(3, año);
+            preparedStatement.setInt(3, Integer.parseInt(anio));
             preparedStatement.setString(4, genero);
             preparedStatement.setString(5, idioma);
-            preparedStatement.setString(6, precio);
+            preparedStatement.setDouble(6, Double.parseDouble(precio));
+            preparedStatement.setBoolean(7, true); // Disponibilidad por defecto a true
+
             preparedStatement.executeUpdate();
-            System.out.println("Libro agregado exitosamente!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    public List<String> obtenerLibros() {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo, autor FROM libros";
 
+        try (Connection connection = conectar();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+                String autor = resultSet.getString("autor");
+
+                libros.add(id + ": " + titulo + " - " + autor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    } 
+    
+    public Libro obtenerLibroPorId(int id) {
+        Libro libro = null;
+        String sql = "SELECT * FROM libros WHERE id = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String titulo = resultSet.getString("titulo");
+                String autor = resultSet.getString("autor");
+                String genero = resultSet.getString("genero");
+                int anio = resultSet.getInt("año"); // Cambio aquí
+                String idioma = resultSet.getString("idioma");
+                double precio = resultSet.getDouble("precio");
+                boolean disponible = resultSet.getBoolean("disponible");
+
+                libro = new Libro(id, titulo, autor, genero, anio, idioma, precio, disponible);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libro;
+    }
 }
+
