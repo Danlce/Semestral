@@ -156,5 +156,23 @@ public class Conexion {
         }
         return libro;
     }
-}
+    public List<String> obtenerLibrosSinId() {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT titulo, autor FROM libros";
 
+        try (Connection connection = conectar();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                String titulo = resultSet.getString("titulo");
+                String autor = resultSet.getString("autor");
+
+                libros.add(titulo + " - " + autor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+}
+}

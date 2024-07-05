@@ -10,7 +10,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import java.awt.List;
 import javax.swing.JTextField;
 
@@ -53,42 +55,10 @@ public class MenuPrincipal extends JFrame {
 		lblNewLabel.setBounds(80, 3, 397, 69);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(44, 124, 89, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(44, 158, 89, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(44, 192, 89, 23);
-		contentPane.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(44, 226, 89, 23);
-		contentPane.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("New button");
-		btnNewButton_4.setBounds(44, 260, 89, 23);
-		contentPane.add(btnNewButton_4);
-		
-		JButton btnNewButton_5 = new JButton("New button");
-		btnNewButton_5.setBounds(44, 294, 89, 23);
-		contentPane.add(btnNewButton_5);
-		
 		JLabel lblNewLabel_1 = new JLabel("Buscador:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(141, 77, 109, 29);
 		contentPane.add(lblNewLabel_1);
-		
-		List list = new List();
-		list.setBounds(153, 128, 501, 237);
-		contentPane.add(list);
 		
 		textField = new JTextField();
 		textField.setBounds(219, 83, 219, 20);
@@ -99,9 +69,48 @@ public class MenuPrincipal extends JFrame {
 		btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Lógica de búsqueda
 			}
 		});
 		btnNewButton_6.setBounds(442, 82, 89, 23);
 		contentPane.add(btnNewButton_6);
+		
+		List list = new List();
+		list.setBounds(153, 128, 501, 237);
+		contentPane.add(list);
+		
+		// Crear la barra de menú
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		// Menú "Opciones"
+		JMenu menuOpciones = new JMenu("Menu");
+		menuBar.add(menuOpciones);
+		
+		// Opción "Registros de Clientes"
+		JMenuItem menuItemRegistrosDeClientes = new JMenuItem("Registros de Clientes");
+		menuItemRegistrosDeClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Lógica para abrir la ventana de registros de clientes
+				RegistrosDeClientes ventanaRegistrosDeClientes = new RegistrosDeClientes();
+				ventanaRegistrosDeClientes.setVisible(true);
+				// Cerrar la ventana principal
+				dispose();
+			}
+		});
+		menuOpciones.add(menuItemRegistrosDeClientes);
+		
+		// Opción "Catálogo de libros"
+		JMenuItem menuItemCatalogo = new JMenuItem("Catálogo de libros");
+		menuItemCatalogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Lógica para abrir la ventana de catálogo de libros
+				Catalogo ventanaCatalogo = new Catalogo();
+				ventanaCatalogo.setVisible(true);
+				// Cerrar la ventana principal
+				dispose();
+			}
+		});
+		menuOpciones.add(menuItemCatalogo);
 	}
 }

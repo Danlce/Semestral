@@ -4,15 +4,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import sql.Conexion;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import java.util.List;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -23,8 +21,6 @@ public class RegistrosDeClientes extends JFrame {
     private JTextField textField;
     private JButton btnEditar;
     private JButton btnAgregar;
-    private JList list;
-    private DefaultListModel listModel;
 
     /**
      * Launch the application.
@@ -101,6 +97,16 @@ public class RegistrosDeClientes extends JFrame {
         contentPane.add(btnAgregar);
         
         JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual (RegistrosDeClientes)
+                dispose();
+                
+                // Abrir la ventana del menú principal (MenuPrincipal)
+                MenuPrincipal frame = new MenuPrincipal();
+                frame.setVisible(true);
+            }
+        });
         btnRegresar.setBounds(24, 370, 93, 23);
         contentPane.add(btnRegresar);
     }

@@ -17,9 +17,9 @@ public class AlquilarLibros extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textField;
     private JTextField textField_1;
     private JList<String> listClientes;
+    private JList<String> listLibros;
 
     /**
      * Launch the application.
@@ -54,21 +54,16 @@ public class AlquilarLibros extends JFrame {
         lblAlquilarLibros.setBounds(71, 21, 214, 59);
         contentPane.add(lblAlquilarLibros);
 
-        JLabel lblNewLabel_1_1_2 = new JLabel("Fecha de alquiler:");
-        lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_1_2.setBounds(53, 300, 130, 20);
-        contentPane.add(lblNewLabel_1_1_2);
-
         JLabel lblNewLabel_1_1_3 = new JLabel("Fecha de devolución:");
         lblNewLabel_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_1_3.setBounds(53, 331, 150, 20);
+        lblNewLabel_1_1_3.setBounds(49, 314, 150, 20);
         contentPane.add(lblNewLabel_1_1_3);
 
         listClientes = new JList<>();
         listClientes.setBounds(38, 124, 328, 165);
         contentPane.add(listClientes);
 
-        JList<String> listLibros = new JList<>();
+        listLibros = new JList<>();
         listLibros.setBounds(386, 47, 263, 275);
         contentPane.add(listLibros);
 
@@ -82,14 +77,9 @@ public class AlquilarLibros extends JFrame {
         lblNewLabel_1_1_2_1_1.setBounds(376, 21, 206, 20);
         contentPane.add(lblNewLabel_1_1_2_1_1);
 
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(196, 302, 99, 20);
-        contentPane.add(textField);
-
         textField_1 = new JTextField();
         textField_1.setColumns(10);
-        textField_1.setBounds(196, 333, 99, 20);
+        textField_1.setBounds(196, 316, 99, 20);
         contentPane.add(textField_1);
 
         JButton btnRegresar = new JButton("Regresar");
@@ -106,16 +96,30 @@ public class AlquilarLibros extends JFrame {
 
         // Cargar datos de clientes
         cargarClientes();
+
+        // Cargar datos de libros disponibles
+        cargarLibrosDisponibles();
     }
 
     private void cargarClientes() {
         Conexion conexion = new Conexion();
-        DefaultListModel<String> modelo = new DefaultListModel<>();
+        DefaultListModel<String> modeloClientes = new DefaultListModel<>();
 
         for (String cliente : conexion.obtenerClientes()) {
-            modelo.addElement(cliente);
+            modeloClientes.addElement(cliente);
         }
 
-        listClientes.setModel(modelo);
+        listClientes.setModel(modeloClientes);
+    }
+
+    private void cargarLibrosDisponibles() {
+        Conexion conexion = new Conexion();
+        DefaultListModel<String> modeloLibros = new DefaultListModel<>();
+
+        for (String libro : conexion.obtenerLibrosSinId()) {
+            modeloLibros.addElement(libro);
+        }
+
+        listLibros.setModel(modeloLibros);
     }
 }

@@ -91,7 +91,7 @@ public class Catalogo extends JFrame {
         contentPane.add(btnBuscar);
 
         list = new JList<String>();
-        list.setBounds(22, 176, 630, 194);
+        list.setBounds(22, 176, 630, 159);
         contentPane.add(list);
 
         JLabel lblNewLabel = new JLabel("Buscador:");
@@ -111,6 +111,10 @@ public class Catalogo extends JFrame {
         JButton btnBorrar = new JButton("Borrar");
         btnBorrar.setBounds(410, 116, 89, 23);
         contentPane.add(btnBorrar);
+        
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.setBounds(22, 347, 89, 23);
+        contentPane.add(btnRegresar);
 
         // Action Listener para el botón Mostrar Detalles
         btnMostrar.addActionListener(new ActionListener() {
