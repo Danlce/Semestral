@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import sql.Conexion;
 
 public class AgregarClientes extends JFrame {
@@ -86,30 +87,44 @@ public class AgregarClientes extends JFrame {
         JButton btnAgregar = new JButton("Agregar Cliente");
         btnAgregar.setBounds(526, 327, 107, 23);
         contentPane.add(btnAgregar);
-        
+
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual
+                dispose();
+                // Abrir la ventana de RegistroDeClientes
+                RegistrosDeClientes frame = new RegistrosDeClientes();
+                frame.setVisible(true);
+            }
         });
         btnRegresar.setBounds(35, 327, 84, 23);
         contentPane.add(btnRegresar);
 
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nombre = textFieldNombre.getText();
-                String telefono = textFieldTelefono.getText();
-                String direccion = textFieldDireccion.getText();
+                String nombre = textFieldNombre.getText().trim();
+                String telefono = textFieldTelefono.getText().trim();
+                String direccion = textFieldDireccion.getText().trim();
 
-                Conexion conexion = new Conexion();
-                conexion.insertarCliente(nombre, telefono, direccion);
+                if (nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+                    JOptionPane.showMessageDialog(contentPane, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!nombre.matches("[a-zA-Z\\s]+")) {
+                    JOptionPane.showMessageDialog(contentPane, "El nombre no debe contener números ni caracteres especiales", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (!telefono.matches("[0-9-]+")) {
+                    JOptionPane.showMessageDialog(contentPane, "El teléfono solo debe contener números y el carácter especial '-'", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Conexion conexion = new Conexion();
+                    conexion.insertarCliente(nombre, telefono, direccion);
 
-                // Limpiar los campos de texto después de insertar el cliente
-                textFieldNombre.setText("");
-                textFieldTelefono.setText("");
-                textFieldDireccion.setText("");
+                    // Limpiar los campos de texto después de insertar el cliente
+                    textFieldNombre.setText("");
+                    textFieldTelefono.setText("");
+                    textFieldDireccion.setText("");
+                    
+                    JOptionPane.showMessageDialog(contentPane, "Cliente agregado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }
 }
-

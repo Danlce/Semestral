@@ -40,6 +40,7 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
     public List<String> obtenerClientes() {
         List<String> clientes = new ArrayList<>();
         String sql = "SELECT nombre, telefono, direccion FROM clientes";
@@ -52,14 +53,58 @@ public class Conexion {
                 String nombre = resultSet.getString("nombre");
                 String telefono = resultSet.getString("telefono");
                 String direccion = resultSet.getString("direccion");
-                clientes.add(nombre + "   " + telefono + "   " + direccion);
+                clientes.add(nombre + " " + telefono + " " + direccion);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return clientes;
     }
-}
 
+    public void borrarCliente(String nombre) {
+        String sql = "DELETE FROM clientes WHERE nombre = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, nombre);
+            preparedStatement.executeUpdate();
+            System.out.println("Cliente borrado exitosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void actualizarCliente(String nombreOriginal, String nuevoNombre, String nuevoTelefono, String nuevaDireccion) {
+        String sql = "UPDATE clientes SET nombre = ?, telefono = ?, direccion = ? WHERE nombre = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, nuevoNombre);
+            preparedStatement.setString(2, nuevoTelefono);
+            preparedStatement.setString(3, nuevaDireccion);
+            preparedStatement.setString(4, nombreOriginal);
+            preparedStatement.executeUpdate();
+            System.out.println("Cliente actualizado exitosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void insertarLibro(String titulo, String autor, String año, String genero, String idioma, String precio) {
+        String sql = "INSERT INTO libros (titulo, autor, año, genero, idioma, precio) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = conectar();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, autor);
+            preparedStatement.setString(3, año);
+            preparedStatement.setString(4, genero);
+            preparedStatement.setString(5, idioma);
+            preparedStatement.setString(6, precio);
+            preparedStatement.executeUpdate();
+            System.out.println("Libro agregado exitosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
