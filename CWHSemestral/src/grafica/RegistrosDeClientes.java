@@ -137,7 +137,7 @@ public class RegistrosDeClientes extends JFrame {
             }
         });
 
-        // Cargar clientes al iniciar la ventana
+        // Cargar clientes al iniciar la ventana.
         cargarClientes();
     }
 
