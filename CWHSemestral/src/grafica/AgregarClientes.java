@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import sql.Conexion;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class AgregarClientes extends JFrame {
 
@@ -44,6 +46,7 @@ public class AgregarClientes extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 691, 418);
         contentPane = new JPanel();
+        contentPane.setBackground(SystemColor.textHighlightText);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
@@ -60,7 +63,7 @@ public class AgregarClientes extends JFrame {
         contentPane.add(lblNewLabel_1);
 
         textFieldNombre = new JTextField();
-        textFieldNombre.setBounds(107, 111, 120, 20);
+        textFieldNombre.setBounds(107, 111, 284, 20);
         contentPane.add(textFieldNombre);
         textFieldNombre.setColumns(10);
 
@@ -76,12 +79,12 @@ public class AgregarClientes extends JFrame {
 
         textFieldTelefono = new JTextField();
         textFieldTelefono.setColumns(10);
-        textFieldTelefono.setBounds(107, 140, 120, 20);
+        textFieldTelefono.setBounds(107, 140, 284, 20);
         contentPane.add(textFieldTelefono);
 
         textFieldDireccion = new JTextField();
         textFieldDireccion.setColumns(10);
-        textFieldDireccion.setBounds(107, 171, 120, 20);
+        textFieldDireccion.setBounds(107, 171, 284, 20);
         contentPane.add(textFieldDireccion);
 
         JButton btnAgregar = new JButton("Agregar Cliente");

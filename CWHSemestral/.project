@@ -14,4 +14,21 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/imagen/Papel Tapiz De Libros.jpeg</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Papel%20Tapiz%20De%20Libros.jpeg</locationURI>
+		</link>
+		<link>
+			<name>src/imagen/Photo by Susan Q Yin on Unsplash.jpeg</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Photo%20by%20Susan%20Q%20Yin%20on%20Unsplash.jpeg</locationURI>
+		</link>
+		<link>
+			<name>src/imagen/add-user-vector-icon.jpg</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/add-user-vector-icon.jpg</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
