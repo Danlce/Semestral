@@ -11,16 +11,20 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import sql.Conexion;
 
 public class RegistrosDeClientes extends JFrame {
-
+    private Conexion conexion;
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField textField;
     private JButton btnEditar;
     private JButton btnAgregar;
+    private JList<String> listClientes;
+    private JButton btnBorrar;
 
     /**
      * Launch the application.
@@ -49,15 +53,15 @@ public class RegistrosDeClientes extends JFrame {
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+        conexion = new Conexion();
         JLabel lblNewLabel = new JLabel("Lista de Clientes Actuales");
         lblNewLabel.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblNewLabel.setBounds(35, 11, 337, 43);
         contentPane.add(lblNewLabel);
         
-        JList list = new JList();
-        list.setBounds(24, 110, 641, 229);
-        contentPane.add(list);
+        listClientes = new JList<>();
+        listClientes.setBounds(24, 110, 641, 229);
+        contentPane.add(listClientes);
         
         JLabel lblNewLabel_1 = new JLabel("Nombre:");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -109,5 +113,46 @@ public class RegistrosDeClientes extends JFrame {
         });
         btnRegresar.setBounds(24, 370, 93, 23);
         contentPane.add(btnRegresar);
+        
+      
+        btnBorrar = new JButton("Borrar");
+        btnBorrar.setBounds(479, 350, 89, 23);
+        contentPane.add(btnBorrar);
+       
+
+        btnBorrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String alquilerSeleccionado = listClientes.getSelectedValue();
+                if (alquilerSeleccionado != null) {
+                    String[] parts = alquilerSeleccionado.split(" - Alquiló: ");
+                    String nombreCliente = parts[0];
+                    String tituloLibro = parts[1].substring(0, parts[1].indexOf(","));
+
+                    // Utilización de la conexión para borrar el alquiler
+                    conexion.borrarAlquiler(nombreCliente, tituloLibro);
+
+                    // Recargar la lista de clientes después de borrar el alquiler
+                    cargarClientes();
+                }
+            }
+        });
+
+        // Cargar clientes al iniciar la ventana.
+        cargarClientes();
+    }
+
+    private void cargarClientes() {
+        List<String> clientes = conexion.obtenerClientesConAlquileres();
+
+        // Verificar si la lista de clientes está vacía
+        if (!clientes.isEmpty()) {
+            DefaultListModel<String> modeloClientes = new DefaultListModel<>();
+            for (String cliente : clientes) {
+                modeloClientes.addElement(cliente);
+            }
+            listClientes.setModel(modeloClientes);
+        } else {
+            listClientes.setModel(new DefaultListModel<>()); // Si está vacía, establecer un modelo vacío
+        }
     }
 }

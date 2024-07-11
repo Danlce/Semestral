@@ -1,27 +1,29 @@
 package grafica;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logica.CustomDateChooser;
+
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.DefaultListModel;
-
-
 import sql.Conexion;
 
 public class AlquilarLibros extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textField_1;
     private JList<String> listClientes;
     private JList<String> listLibros;
-    private JDateChooser dateChooser;
+    private CustomDateChooser dateChooser;
 
     /**
      * Launch the application.
@@ -61,8 +63,8 @@ public class AlquilarLibros extends JFrame {
         lblNewLabel_1_1_3.setBounds(49, 314, 150, 20);
         contentPane.add(lblNewLabel_1_1_3);
 
-        // Configuración del JDateChooser
-        dateChooser = new JDateChooser();
+        // Configuración del CustomDateChooser en lugar de JDateChooser
+        dateChooser = new CustomDateChooser();
         dateChooser.setBounds(196, 316, 150, 20);
         contentPane.add(dateChooser);
 
@@ -91,7 +93,7 @@ public class AlquilarLibros extends JFrame {
         JButton btnAlquilar = new JButton("Alquilar");
         btnAlquilar.setBounds(546, 378, 93, 23);
         contentPane.add(btnAlquilar);
-        
+
         JButton btnRegistroDeClientes = new JButton("Registro de Clientes");
         btnRegistroDeClientes.setBounds(376, 332, 130, 23);
         contentPane.add(btnRegistroDeClientes);
@@ -101,6 +103,13 @@ public class AlquilarLibros extends JFrame {
 
         // Cargar datos de libros disponibles
         cargarLibrosDisponibles();
+
+        // Acción del botón Alquilar
+        btnAlquilar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                alquilarLibro();
+            }
+        });
     }
 
     private void cargarClientes() {
@@ -118,10 +127,30 @@ public class AlquilarLibros extends JFrame {
         Conexion conexion = new Conexion();
         DefaultListModel<String> modeloLibros = new DefaultListModel<>();
 
-        for (String libro : conexion.obtenerLibrosSinId()) {
+        for (String libro : conexion.obtenerLibrosDisponibles()) {
             modeloLibros.addElement(libro);
         }
 
         listLibros.setModel(modeloLibros);
+    }
+
+    private void alquilarLibro() {
+        String clienteSeleccionado = listClientes.getSelectedValue();
+        String libroSeleccionado = listLibros.getSelectedValue();
+        Date fechaDevolucion = dateChooser.getDate();
+
+        if (clienteSeleccionado == null || libroSeleccionado == null || fechaDevolucion == null) {
+            System.out.println("Debe seleccionar un cliente, un libro y una fecha de devolución.");
+            return;
+        }
+
+        String clienteNombre = clienteSeleccionado.split(" ")[0];
+        String libroTitulo = libroSeleccionado.split(" - ")[0];
+
+        Conexion conexion = new Conexion();
+        conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()));
+
+        // Recargar listas
+        cargarLibrosDisponibles();
     }
 }
