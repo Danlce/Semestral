@@ -47,7 +47,7 @@ public class ReservacionDeLibros extends JFrame {
 		
 		JLabel lblReservacion = new JLabel("Reservar Libros");
 		lblReservacion.setFont(new Font("Vivaldi", Font.PLAIN, 31));
-		lblReservacion.setBounds(54, 11, 315, 38);
+		lblReservacion.setBounds(54, 11, 206, 38);
 		contentPane.add(lblReservacion);
 		
 		JList list = new JList();
