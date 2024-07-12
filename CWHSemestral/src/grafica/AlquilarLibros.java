@@ -16,6 +16,8 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.DefaultListModel;
 import sql.Conexion;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class AlquilarLibros extends JFrame {
 
@@ -46,7 +48,7 @@ public class AlquilarLibros extends JFrame {
      */
     public AlquilarLibros() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 690, 463);
+        setBounds(100, 100, 732, 490);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -54,11 +56,13 @@ public class AlquilarLibros extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblAlquilarLibros = new JLabel("Alquiler de Libros");
+        lblAlquilarLibros.setForeground(new Color(255, 255, 255));
         lblAlquilarLibros.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblAlquilarLibros.setBounds(71, 21, 214, 59);
         contentPane.add(lblAlquilarLibros);
 
         JLabel lblNewLabel_1_1_3 = new JLabel("Fecha de devolución:");
+        lblNewLabel_1_1_3.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_1_3.setBounds(49, 314, 150, 20);
         contentPane.add(lblNewLabel_1_1_3);
@@ -73,30 +77,41 @@ public class AlquilarLibros extends JFrame {
         contentPane.add(listClientes);
 
         listLibros = new JList<>();
-        listLibros.setBounds(386, 47, 263, 275);
+        listLibros.setBounds(386, 77, 291, 275);
         contentPane.add(listLibros);
 
         JLabel lblNewLabel_1_1_2_1 = new JLabel("Lista de Clientes Actuales");
+        lblNewLabel_1_1_2_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_1_2_1.setBounds(28, 93, 206, 20);
         contentPane.add(lblNewLabel_1_1_2_1);
 
         JLabel lblNewLabel_1_1_2_1_1 = new JLabel("Lista de Libros Disponibles");
+        lblNewLabel_1_1_2_1_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_1_2_1_1.setBounds(376, 21, 206, 20);
+        lblNewLabel_1_1_2_1_1.setBounds(368, 43, 206, 20);
         contentPane.add(lblNewLabel_1_1_2_1_1);
 
         JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.setBounds(28, 378, 93, 23);
+        btnRegresar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnRegresar.setBounds(38, 396, 93, 23);
         contentPane.add(btnRegresar);
 
         JButton btnAlquilar = new JButton("Alquilar");
-        btnAlquilar.setBounds(546, 378, 93, 23);
+        btnAlquilar.setBounds(584, 396, 93, 23);
         contentPane.add(btnAlquilar);
 
         JButton btnRegistroDeClientes = new JButton("Registro de Clientes");
-        btnRegistroDeClientes.setBounds(376, 332, 130, 23);
+        btnRegistroDeClientes.setBounds(547, 362, 130, 23);
         contentPane.add(btnRegistroDeClientes);
+        
+        JLabel lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
+        lblNewLabel.setBounds(0, -40, 756, 505);
+        contentPane.add(lblNewLabel);
 
         // Cargar datos de clientes
         cargarClientes();

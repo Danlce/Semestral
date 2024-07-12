@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 public class AgregarLibros extends JFrame {
 
@@ -111,7 +112,7 @@ public class AgregarLibros extends JFrame {
         // Crear checkboxes para géneros
         generoCheckboxes = new ArrayList<>();
         JCheckBox checkBoxFiccion = new JCheckBox("Ficción");
-        checkBoxFiccion.setBounds(356, 117, 80, 23);
+        checkBoxFiccion.setBounds(357, 117, 80, 23);
         contentPane.add(checkBoxFiccion);
         generoCheckboxes.add(checkBoxFiccion);
 
@@ -121,12 +122,12 @@ public class AgregarLibros extends JFrame {
         generoCheckboxes.add(checkBoxNoFiccion);
 
         JCheckBox checkBoxCienciaFiccion = new JCheckBox("Ciencia ficción");
-        checkBoxCienciaFiccion.setBounds(356, 148, 120, 23);
+        checkBoxCienciaFiccion.setBounds(357, 148, 120, 23);
         contentPane.add(checkBoxCienciaFiccion);
         generoCheckboxes.add(checkBoxCienciaFiccion);
 
         JCheckBox checkBoxRomance = new JCheckBox("Romance");
-        checkBoxRomance.setBounds(356, 179, 80, 23);
+        checkBoxRomance.setBounds(357, 179, 80, 23);
         contentPane.add(checkBoxRomance);
         generoCheckboxes.add(checkBoxRomance);
 
@@ -142,12 +143,12 @@ public class AgregarLibros extends JFrame {
 
         // Nuevos checkboxes para más géneros
         JCheckBox checkBoxAventura = new JCheckBox("Aventura");
-        checkBoxAventura.setBounds(356, 209, 100, 23);
+        checkBoxAventura.setBounds(357, 210, 100, 23);
         contentPane.add(checkBoxAventura);
         generoCheckboxes.add(checkBoxAventura);
 
         JCheckBox checkBoxHistoria = new JCheckBox("Historia");
-        checkBoxHistoria.setBounds(356, 240, 80, 23);
+        checkBoxHistoria.setBounds(357, 241, 80, 23);
         contentPane.add(checkBoxHistoria);
         generoCheckboxes.add(checkBoxHistoria);
 

@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class EditarClientesActuales extends JFrame {
 
@@ -30,6 +32,7 @@ public class EditarClientesActuales extends JFrame {
     private JButton btnGuardarCambios;
     private JList<String> list;
     private DefaultListModel<String> listModel;
+    private JLabel lblNewLabel_1;
 
     /**
      * Launch the application.
@@ -52,7 +55,7 @@ public class EditarClientesActuales extends JFrame {
      */
     public EditarClientesActuales() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 690, 420);
+        setBounds(100, 100, 736, 468);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -60,6 +63,7 @@ public class EditarClientesActuales extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblEditando = new JLabel("Editar Clientes Actuales");
+        lblEditando.setForeground(new Color(255, 255, 255));
         lblEditando.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblEditando.setBounds(76, 21, 315, 59);
         contentPane.add(lblEditando);
@@ -80,37 +84,45 @@ public class EditarClientesActuales extends JFrame {
         contentPane.add(textField_2);
 
         lblNewLabel = new JLabel("Nombre");
+        lblNewLabel.setForeground(new Color(255, 255, 255));
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel.setBounds(34, 111, 78, 20);
         contentPane.add(lblNewLabel);
 
         lblTelefono = new JLabel("Teléfono");
+        lblTelefono.setForeground(new Color(255, 255, 255));
         lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblTelefono.setBounds(34, 142, 78, 20);
         contentPane.add(lblTelefono);
 
         lblDireccion = new JLabel("Dirección");
+        lblDireccion.setForeground(new Color(255, 255, 255));
         lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblDireccion.setBounds(34, 173, 78, 20);
         contentPane.add(lblDireccion);
 
         btnRegresar = new JButton("Regresar");
-        btnRegresar.setBounds(34, 329, 93, 23);
+        btnRegresar.setBounds(34, 368, 93, 23);
         contentPane.add(btnRegresar);
 
         btnGuardarCambios = new JButton("Guardar Cambios");
-        btnGuardarCambios.setBounds(529, 329, 120, 23);
+        btnGuardarCambios.setBounds(566, 368, 120, 23);
         contentPane.add(btnGuardarCambios);
 
         // Crear el modelo para la lista
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
-        list.setBounds(262, 91, 387, 219);
+        list.setBounds(262, 111, 424, 234);
         contentPane.add(list);
 
         JButton btnBorrar = new JButton("Borrar");
-        btnBorrar.setBounds(272, 329, 120, 23);
+        btnBorrar.setBounds(262, 368, 93, 23);
         contentPane.add(btnBorrar);
+        
+        lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
+        lblNewLabel_1.setBounds(-15, -51, 895, 493);
+        contentPane.add(lblNewLabel_1);
 
         // Obtener los datos de los clientes y agregarlos al modelo de la lista
         Conexion conexion = new Conexion();

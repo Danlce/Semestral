@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import sql.Conexion;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class RegistrosDeClientes extends JFrame {
     private Conexion conexion;
@@ -25,6 +27,7 @@ public class RegistrosDeClientes extends JFrame {
     private JButton btnAgregar;
     private JList<String> listClientes;
     private JButton btnBorrar;
+    private JLabel lblNewLabel_2;
 
     /**
      * Launch the application.
@@ -47,7 +50,7 @@ public class RegistrosDeClientes extends JFrame {
      */
     public RegistrosDeClientes() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 700, 467);
+        setBounds(100, 100, 722, 473);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -55,15 +58,17 @@ public class RegistrosDeClientes extends JFrame {
         contentPane.setLayout(null);
         conexion = new Conexion();
         JLabel lblNewLabel = new JLabel("Lista de Clientes Actuales");
+        lblNewLabel.setForeground(new Color(255, 255, 255));
         lblNewLabel.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblNewLabel.setBounds(35, 11, 337, 43);
         contentPane.add(lblNewLabel);
         
         listClientes = new JList<>();
-        listClientes.setBounds(24, 110, 641, 229);
+        listClientes.setBounds(24, 110, 664, 229);
         contentPane.add(listClientes);
         
         JLabel lblNewLabel_1 = new JLabel("Nombre:");
+        lblNewLabel_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1.setBounds(84, 72, 82, 27);
         contentPane.add(lblNewLabel_1);
@@ -86,7 +91,7 @@ public class RegistrosDeClientes extends JFrame {
                 frame.setVisible(true);
             }
         });
-        btnEditar.setBounds(576, 350, 89, 23);
+        btnEditar.setBounds(599, 350, 89, 23);
         contentPane.add(btnEditar);
         
         btnAgregar = new JButton("Agregar");
@@ -97,7 +102,7 @@ public class RegistrosDeClientes extends JFrame {
                 frame.setVisible(true);
             }
         });
-        btnAgregar.setBounds(576, 384, 89, 23);
+        btnAgregar.setBounds(599, 383, 89, 23);
         contentPane.add(btnAgregar);
         
         JButton btnRegresar = new JButton("Regresar");
@@ -116,8 +121,13 @@ public class RegistrosDeClientes extends JFrame {
         
       
         btnBorrar = new JButton("Borrar");
-        btnBorrar.setBounds(479, 350, 89, 23);
+        btnBorrar.setBounds(500, 350, 89, 23);
         contentPane.add(btnBorrar);
+        
+        lblNewLabel_2 = new JLabel("");
+        lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\aaaaaa.jpg"));
+        lblNewLabel_2.setBounds(0, 0, 814, 473);
+        contentPane.add(lblNewLabel_2);
        
 
         btnBorrar.addActionListener(new ActionListener() {

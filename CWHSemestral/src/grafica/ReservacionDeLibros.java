@@ -11,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class ReservacionDeLibros extends JFrame {
 
@@ -46,8 +48,9 @@ public class ReservacionDeLibros extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblReservacion = new JLabel("Reservar Libros");
+		lblReservacion.setForeground(new Color(255, 255, 255));
 		lblReservacion.setFont(new Font("Vivaldi", Font.PLAIN, 31));
-		lblReservacion.setBounds(54, 11, 206, 38);
+		lblReservacion.setBounds(54, 11, 250, 55);
 		contentPane.add(lblReservacion);
 		
 		JList list = new JList();
@@ -71,13 +74,20 @@ public class ReservacionDeLibros extends JFrame {
 		contentPane.add(listLibros);
 		
 		JLabel lblNewLabel_1_1_2_1_1 = new JLabel("Catalogo de Libros");
+		lblNewLabel_1_1_2_1_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1_1_2_1_1.setBounds(357, 31, 206, 20);
 		contentPane.add(lblNewLabel_1_1_2_1_1);
 		
 		JLabel lblNewLabel_1_1_2_1 = new JLabel("Lista de Clientes Actuales");
+		lblNewLabel_1_1_2_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1_1_2_1.setBounds(27, 77, 206, 20);
 		contentPane.add(lblNewLabel_1_1_2_1);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1986.jpg"));
+		lblNewLabel.setBounds(0, 0, 944, 456);
+		contentPane.add(lblNewLabel);
 	}
 }

@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import logica.Libro;
 import sql.Conexion;
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class Catalogo extends JFrame {
 
@@ -47,7 +50,7 @@ public class Catalogo extends JFrame {
     public Catalogo() {
         conexion = new Conexion(); // Instancia de la clase Conexion
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 690, 420);
+        setBounds(100, 100, 752, 461);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -63,7 +66,7 @@ public class Catalogo extends JFrame {
         contentPane.add(rdbtnAutor);
 
         JRadioButton rdbtnGenero = new JRadioButton("Por género");
-        rdbtnGenero.setBounds(258, 146, 89, 23);
+        rdbtnGenero.setBounds(258, 146, 80, 23);
         contentPane.add(rdbtnGenero);
 
         JRadioButton rdbtnCodigo = new JRadioButton("Por código");
@@ -83,38 +86,54 @@ public class Catalogo extends JFrame {
         contentPane.add(rdbtnPrecio);
 
         JRadioButton rdbtnDisponible = new JRadioButton("Por disponibilidad");
+        rdbtnDisponible.setBackground(new Color(70, 130, 180));
+        rdbtnDisponible.setForeground(new Color(255, 255, 255));
         rdbtnDisponible.setBounds(501, 146, 109, 23);
         contentPane.add(rdbtnDisponible);
 
         JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setBounds(410, 81, 89, 23);
+        btnBuscar.setBackground(new Color(51, 51, 255));
+        btnBuscar.setBounds(408, 83, 89, 23);
         contentPane.add(btnBuscar);
 
         list = new JList<String>();
-        list.setBounds(22, 176, 630, 159);
+        list.setBounds(22, 176, 687, 189);
         contentPane.add(list);
 
         JLabel lblNewLabel = new JLabel("Buscador:");
+        lblNewLabel.setForeground(new Color(255, 255, 255));
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel.setBounds(67, 85, 73, 14);
         contentPane.add(lblNewLabel);
 
         JLabel lblCatalogoDeLibros = new JLabel("Catalogo de Libros");
+        lblCatalogoDeLibros.setForeground(new Color(255, 255, 255));
         lblCatalogoDeLibros.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblCatalogoDeLibros.setBounds(32, 30, 315, 38);
         contentPane.add(lblCatalogoDeLibros);
 
         JButton btnMostrar = new JButton("Mostrar Detalles");
-        btnMostrar.setBounds(519, 81, 120, 23);
+        btnMostrar.setBackground(new Color(102, 153, 255));
+        btnMostrar.setBounds(589, 376, 120, 23);
         contentPane.add(btnMostrar);
         
         JButton btnBorrar = new JButton("Borrar");
-        btnBorrar.setBounds(410, 116, 89, 23);
+        btnBorrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnBorrar.setBackground(new Color(153, 102, 255));
+        btnBorrar.setBounds(620, 146, 89, 23);
         contentPane.add(btnBorrar);
         
         JButton btnRegresar = new JButton("Regresar");
-        btnRegresar.setBounds(22, 347, 89, 23);
+        btnRegresar.setBounds(22, 376, 89, 23);
         contentPane.add(btnRegresar);
+        
+        JLabel lblNewLabel_1 = new JLabel("");
+        lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
+        lblNewLabel_1.setBounds(0, -21, 864, 475);
+        contentPane.add(lblNewLabel_1);
 
         // Action Listener para el botón Mostrar Detalles
         btnMostrar.addActionListener(new ActionListener() {

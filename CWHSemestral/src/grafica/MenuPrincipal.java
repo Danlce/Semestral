@@ -15,6 +15,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.List;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class MenuPrincipal extends JFrame {
 
@@ -43,7 +45,7 @@ public class MenuPrincipal extends JFrame {
 	 */
 	public MenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 693, 441);
+		setBounds(100, 100, 859, 463);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -51,11 +53,13 @@ public class MenuPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Libreria Wilberto el mas maricon ");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Vivaldi", Font.PLAIN, 31));
-		lblNewLabel.setBounds(80, 3, 397, 69);
+		lblNewLabel.setBounds(260, 21, 397, 69);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Buscador:");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(141, 77, 109, 29);
 		contentPane.add(lblNewLabel_1);
@@ -76,8 +80,18 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(btnNewButton_6);
 		
 		List list = new List();
-		list.setBounds(153, 128, 501, 237);
+		list.setBounds(229, 112, 530, 237);
 		contentPane.add(list);
+		
+		JMenu mnNewMenu = new JMenu("New menu");
+		mnNewMenu.setForeground(new Color(255, 255, 255));
+		mnNewMenu.setBounds(40, 117, 117, 26);
+		contentPane.add(mnNewMenu);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\pppppp.jpg"));
+		lblNewLabel_2.setBounds(-19, -49, 852, 451);
+		contentPane.add(lblNewLabel_2);
 		
 		// Crear la barra de menú
 		JMenuBar menuBar = new JMenuBar();

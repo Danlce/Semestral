@@ -10,10 +10,11 @@ public class MostrarDetallesLibro extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JPanel panelDetallesLibro;
+    private JLabel lblNewLabel;
 
     public MostrarDetallesLibro(Libro libro) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  // Cambiar a DISPOSE_ON_CLOSE para no cerrar toda la aplicación
-        setBounds(100, 100, 690, 279);
+        setBounds(100, 100, 719, 354);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -21,14 +22,19 @@ public class MostrarDetallesLibro extends JFrame {
 
         // Panel para mostrar detalles del libro seleccionado
         panelDetallesLibro = new JPanel();
-        panelDetallesLibro.setBounds(22, 20, 630, 177);
+        panelDetallesLibro.setBounds(30, 42, 647, 223);
         panelDetallesLibro.setBorder(BorderFactory.createTitledBorder("Detalles del Libro"));
         panelDetallesLibro.setLayout(new GridLayout(0, 2, 10, 10));
         contentPane.add(panelDetallesLibro);
         
         JButton btnCerrar = new JButton("Cerrar");
-        btnCerrar.setBounds(563, 206, 89, 23);
+        btnCerrar.setBounds(588, 276, 89, 23);
         contentPane.add(btnCerrar);
+        
+        lblNewLabel = new JLabel("");
+        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1917.jpg"));
+        lblNewLabel.setBounds(-31, -88, 828, 430);
+        contentPane.add(lblNewLabel);
 
         // Agregar ActionListener para el botón Cerrar
         btnCerrar.addActionListener(e -> {
