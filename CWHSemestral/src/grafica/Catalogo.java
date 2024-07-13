@@ -131,7 +131,7 @@ public class Catalogo extends JFrame {
         contentPane.add(btnRegresar);
         
         JLabel lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
+        lblNewLabel_1.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
         lblNewLabel_1.setBounds(0, -21, 864, 475);
         contentPane.add(lblNewLabel_1);
 

@@ -83,11 +83,6 @@ public class MenuPrincipal extends JFrame {
 		list.setBounds(229, 112, 530, 237);
 		contentPane.add(list);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		mnNewMenu.setForeground(new Color(255, 255, 255));
-		mnNewMenu.setBounds(40, 117, 117, 26);
-		contentPane.add(mnNewMenu);
-		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\pppppp.jpg"));
 		lblNewLabel_2.setBounds(-19, -49, 852, 451);

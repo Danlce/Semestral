@@ -125,7 +125,7 @@ public class RegistrosDeClientes extends JFrame {
         contentPane.add(btnBorrar);
         
         lblNewLabel_2 = new JLabel("");
-        lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\aaaaaa.jpg"));
+        lblNewLabel_2.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\aaaaaa.jpg"));
         lblNewLabel_2.setBounds(0, 0, 814, 473);
         contentPane.add(lblNewLabel_2);
        
