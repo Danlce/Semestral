@@ -5,19 +5,21 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import logica.Libro;
 import sql.Conexion;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class Catalogo extends JFrame {
 
@@ -27,7 +29,14 @@ public class Catalogo extends JFrame {
     private JList<String> list;
     private Conexion conexion;
     private MostrarDetallesLibro detallesFrame; // Referencia al frame de detalles abierto
+    private ButtonGroup radioButtonGroup;
 
+    
+    private JRadioButton rdbtnAutor;
+    private JRadioButton rdbtnCodigo;
+    private JRadioButton rdbtnAnio;
+    private JRadioButton rdbtnIdioma;
+ 
     /**
      * Launch the application.
      */
@@ -55,41 +64,45 @@ public class Catalogo extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
+        JButton btnBuscar_1 = new JButton("Lista Normal");
+        btnBuscar_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cargarLibros(); // Cargar la lista completa de libros nuevamente
+            }
+        });
+        btnBuscar_1.setBackground(new Color(51, 51, 255));
+        btnBuscar_1.setBounds(456, 146, 110, 23);
+        contentPane.add(btnBuscar_1);
 
         textField = new JTextField();
         textField.setBounds(139, 84, 259, 20);
         contentPane.add(textField);
         textField.setColumns(10);
 
-        JRadioButton rdbtnAutor = new JRadioButton("Por autor");
-        rdbtnAutor.setBounds(32, 146, 73, 23);
+        rdbtnAutor = new JRadioButton("Por autor");
+        rdbtnAutor.setFont(new Font("Tahoma", Font.BOLD, 11));
+        rdbtnAutor.setBounds(353, 146, 79, 23);
         contentPane.add(rdbtnAutor);
 
-        JRadioButton rdbtnGenero = new JRadioButton("Por género");
-        rdbtnGenero.setBounds(258, 146, 80, 23);
-        contentPane.add(rdbtnGenero);
-
-        JRadioButton rdbtnCodigo = new JRadioButton("Por código");
-        rdbtnCodigo.setBounds(107, 146, 80, 23);
+        rdbtnCodigo = new JRadioButton("Por código");
+        rdbtnCodigo.setBounds(32, 146, 89, 23);
         contentPane.add(rdbtnCodigo);
 
-        JRadioButton rdbtnAnio = new JRadioButton("Por año");
-        rdbtnAnio.setBounds(189, 146, 63, 23);
+        rdbtnAnio = new JRadioButton("Por año");
+        rdbtnAnio.setBounds(257, 146, 73, 23);
         contentPane.add(rdbtnAnio);
 
-        JRadioButton rdbtnIdioma = new JRadioButton("Por idioma");
-        rdbtnIdioma.setBounds(344, 146, 80, 23);
+        rdbtnIdioma = new JRadioButton("Por idioma");
+        rdbtnIdioma.setBounds(139, 146, 89, 23);
         contentPane.add(rdbtnIdioma);
 
-        JRadioButton rdbtnPrecio = new JRadioButton("Por precio");
-        rdbtnPrecio.setBounds(426, 146, 73, 23);
-        contentPane.add(rdbtnPrecio);
-
-        JRadioButton rdbtnDisponible = new JRadioButton("Por disponibilidad");
-        rdbtnDisponible.setBackground(new Color(70, 130, 180));
-        rdbtnDisponible.setForeground(new Color(255, 255, 255));
-        rdbtnDisponible.setBounds(501, 146, 109, 23);
-        contentPane.add(rdbtnDisponible);
+        // Agrupar los radio botones
+        radioButtonGroup = new ButtonGroup();
+        radioButtonGroup.add(rdbtnAutor);
+        radioButtonGroup.add(rdbtnCodigo);
+        radioButtonGroup.add(rdbtnAnio);
+        radioButtonGroup.add(rdbtnIdioma);
 
         JButton btnBuscar = new JButton("Buscar");
         btnBuscar.setBackground(new Color(51, 51, 255));
@@ -118,10 +131,6 @@ public class Catalogo extends JFrame {
         contentPane.add(btnMostrar);
         
         JButton btnBorrar = new JButton("Borrar");
-        btnBorrar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
         btnBorrar.setBackground(new Color(153, 102, 255));
         btnBorrar.setBounds(620, 146, 89, 23);
         contentPane.add(btnBorrar);
@@ -146,6 +155,43 @@ public class Catalogo extends JFrame {
             }
         });
 
+     // Action Listener para el botón Buscar
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el texto ingresado en el campo de búsqueda
+                String criterio = textField.getText().trim();
+
+                // Verificar que el campo de búsqueda no esté vacío
+                if (criterio.isEmpty()) {
+                    // Mostrar mensaje de advertencia
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Debe ingresar un criterio de búsqueda antes de buscar.",
+                            "Campo de Búsqueda Vacío",
+                            JOptionPane.WARNING_MESSAGE);
+                    
+                    return; // Salir del método sin hacer nada más
+                }
+
+                // Verificar que se haya seleccionado algún criterio de búsqueda
+                if (!radioButtonGroup.isSelected(rdbtnAutor.getModel()) &&
+                    !radioButtonGroup.isSelected(rdbtnCodigo.getModel()) &&
+                    !radioButtonGroup.isSelected(rdbtnAnio.getModel()) &&
+                    !radioButtonGroup.isSelected(rdbtnIdioma.getModel())) {
+                    
+                    // Mostrar mensaje de advertencia
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Debe seleccionar un criterio de búsqueda antes de buscar.",
+                            "Criterio de Búsqueda No Seleccionado",
+                            JOptionPane.WARNING_MESSAGE);
+                    
+                    return; // Salir del método sin hacer nada más
+                }
+
+                filtrarLibros();
+            }
+        });
+
+
         // Cargar libros al inicio
         cargarLibros();
     }
@@ -167,6 +213,42 @@ public class Catalogo extends JFrame {
             // Mostrar detalles en un nuevo frame de MostrarDetallesLibro
             detallesFrame = new MostrarDetallesLibro(libro);
             detallesFrame.setVisible(true);
+        }
+    }
+
+ // Método para filtrar libros según el criterio seleccionado
+    private void filtrarLibros() {
+        String criterio = textField.getText().trim();
+        List<String> librosFiltrados = null;
+
+        if (criterio.isEmpty()) {
+            cargarLibros();
+            return;
+        }
+
+        if (radioButtonGroup.getSelection() != null) {
+            if (radioButtonGroup.isSelected(rdbtnAutor.getModel())) {
+                librosFiltrados = conexion.obtenerLibrosPorAutor(criterio);
+            } else if (radioButtonGroup.isSelected(rdbtnCodigo.getModel())) {
+                librosFiltrados = conexion.obtenerLibrosPorCodigo(criterio); // Assuming 'criterio' is book ID
+            } else if (radioButtonGroup.isSelected(rdbtnAnio.getModel())) {
+                librosFiltrados = conexion.obtenerLibrosPorAnio(Integer.parseInt(criterio));
+            } else if (radioButtonGroup.isSelected(rdbtnIdioma.getModel())) {
+                librosFiltrados = conexion.obtenerLibrosPorIdioma(criterio);
+            } 
+        }
+
+        if (librosFiltrados != null && !librosFiltrados.isEmpty()) {
+            // Construir lista con el mismo formato "ID: Título"
+            String[] librosArray = new String[librosFiltrados.size()];
+            for (int i = 0; i < librosFiltrados.size(); i++) {
+                String libro = librosFiltrados.get(i);
+                // Aquí asumimos que el formato devuelto por la base de datos ya es "ID: Título"
+                librosArray[i] = libro;
+            }
+            list.setListData(librosArray);
+        } else {
+            list.setListData(new String[]{"No se encontraron resultados"});
         }
     }
 }

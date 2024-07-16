@@ -21,68 +21,73 @@ public class Libro {
         this.disponible = disponible;
     }
 
-    // Getters y setters para todos los campos
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getAutor() {
         return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
     }
 
     public String getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public int getAnio() {
         return anio;
-    }
-
-    public void setAnio(int anio) {
-        this.anio = anio;
     }
 
     public String getIdioma() {
         return idioma;
     }
 
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
-
     public double getPrecio() {
         return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public boolean isDisponible() {
         return disponible;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero + ", año=" + anio
+                + ", idioma=" + idioma + ", precio=" + precio + ", disponible=" + disponible + "]";
     }
 }

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -196,7 +198,7 @@ public class Conexion {
         }
         return libros;
     }
-    public void alquilarLibro(String nombreCliente, String tituloLibro, java.sql.Date fechaDevolucion) {
+    public void alquilarLibro(String nombreCliente, String tituloLibro, java.sql.Date fechaDevolucion, java.sql.Date fechaDevolucionReal) {
         // Obtener el ID del libro por título
         int libroId = obtenerIdLibroPorTitulo(tituloLibro);
 
@@ -207,7 +209,8 @@ public class Conexion {
         java.sql.Date fechaLimite = new java.sql.Date(cal.getTimeInMillis());
 
         // Insertar registro en la tabla de alquileres
-        String sqlAlquiler = "INSERT INTO alquileres (id_libro, nombre_cliente, titulo_libro, fecha_alquiler, fecha_devolucion, fecha_limite_devolucion, importe_amonestacion) VALUES (?, ?, ?, CURDATE(), ?, ?, 0)";
+        String sqlAlquiler = "INSERT INTO alquileres (id_libro, nombre_cliente, titulo_libro, fecha_alquiler, fecha_devolucion, fecha_limite_devolucion, fecha_devolucion_real, importe_amonestacion) " +
+                             "VALUES (?, ?, ?, CURDATE(), ?, ?, ?, 0)";
         try (Connection connection = conectar();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlAlquiler)) {
             preparedStatement.setInt(1, libroId);
@@ -215,6 +218,7 @@ public class Conexion {
             preparedStatement.setString(3, tituloLibro);
             preparedStatement.setDate(4, fechaDevolucion);
             preparedStatement.setDate(5, fechaLimite);
+            preparedStatement.setDate(6, fechaDevolucionReal);
 
             preparedStatement.executeUpdate();
             System.out.println("Libro alquilado correctamente por " + nombreCliente);
@@ -296,6 +300,8 @@ public class Conexion {
         }
         return clientes;
     }
+
+
     public void borrarAlquiler(String nombreCliente, String tituloLibro) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -332,9 +338,173 @@ public class Conexion {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-    }
+        }}
     
+        public LocalDate obtenerFechaDevolucionEsperada(String nombreCliente, String tituloLibro) {
+            LocalDate fechaDevolucionEsperada = null;
+            try (Connection connection = conectar();
+                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT fecha_devolucion FROM alquileres WHERE nombre_cliente = ? AND titulo_libro = ?")) {
 
+                preparedStatement.setString(1, nombreCliente);
+                preparedStatement.setString(2, tituloLibro);
+                ResultSet resultSet = preparedStatement.executeQuery();
 
+                if (resultSet.next()) {
+                    fechaDevolucionEsperada = resultSet.getDate("fecha_devolucion").toLocalDate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return fechaDevolucionEsperada;
+        }
+
+        public LocalDate obtenerFechaDevolucionReal(String nombreCliente, String tituloLibro) {
+            LocalDate fechaDevolucionReal = null;
+            try (Connection connection = conectar();
+                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT fecha_devolucion_real FROM alquileres WHERE nombre_cliente = ? AND titulo_libro = ?")) {
+
+                preparedStatement.setString(1, nombreCliente);
+                preparedStatement.setString(2, tituloLibro);
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                if (resultSet.next()) {
+                    java.sql.Date fechaSQL = resultSet.getDate("fecha_devolucion_real");
+                    if (fechaSQL != null) {
+                        fechaDevolucionReal = fechaSQL.toLocalDate();
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return fechaDevolucionReal;
+        }
+
+        public double calcularAmonestacion(LocalDate fechaDevolucionEsperada, LocalDate fechaDevolucionReal) {
+            if (fechaDevolucionEsperada == null || fechaDevolucionReal == null) {
+                return 0;
+            }
+
+            long diasExcedidos = ChronoUnit.DAYS.between(fechaDevolucionEsperada, fechaDevolucionReal);
+            return Math.max(0, diasExcedidos * 10);
+        }
+        public void actualizarFechaDevolucionReal(String nombreCliente, String tituloLibro) {
+            LocalDate fechaActual = LocalDate.now(); // Obtener la fecha actual
+
+            String sql = "UPDATE alquileres SET fecha_devolucion_real = ? WHERE nombre_cliente = ? AND titulo_libro = ?";
+
+            try (Connection connection = conectar();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setDate(1, Date.valueOf(fechaActual)); // Convertir LocalDate a java.sql.Date
+                preparedStatement.setString(2, nombreCliente);
+                preparedStatement.setString(3, tituloLibro);
+
+                preparedStatement.executeUpdate();
+                System.out.println("Fecha de devolución real actualizada correctamente para " + nombreCliente);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void actualizarAmonestacion(String nombreCliente, String tituloLibro, double amonestacion) {
+        	try {
+                String sql = "UPDATE alquileres SET importe_amonestacion = ? WHERE nombre_cliente = ? AND titulo_libro = ?";
+                try (Connection connection = conectar();
+                     PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                    preparedStatement.setDouble(1, amonestacion);
+                    preparedStatement.setString(2, nombreCliente);
+                    preparedStatement.setString(3, tituloLibro);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+                
+              
+    public List<String> obtenerLibrosPorAutor(String autor) {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo FROM libros WHERE autor = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, autor);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+
+                libros.add(id + ": " + titulo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
+
+    
+    public List<String> obtenerLibrosPorCodigo(String codigo) {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo FROM libros WHERE id = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, codigo); // Assuming 'id' is a string type in your database
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+
+                libros.add(id + ": " + titulo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
+
+    public List<String> obtenerLibrosPorAnio(int anio) {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo FROM libros WHERE año = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, anio);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+
+                libros.add(id + ": " + titulo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
+
+    public List<String> obtenerLibrosPorIdioma(String idioma) {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo FROM libros WHERE idioma = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, idioma);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+
+                libros.add(id + ": " + titulo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
 }

@@ -153,6 +153,7 @@ public class AlquilarLibros extends JFrame {
         String clienteSeleccionado = listClientes.getSelectedValue();
         String libroSeleccionado = listLibros.getSelectedValue();
         Date fechaDevolucion = dateChooser.getDate();
+        Date fechaDevolucionReal = new java.sql.Date(System.currentTimeMillis()); // Aquí obtienes la fecha actual, ajusta según necesites
 
         if (clienteSeleccionado == null || libroSeleccionado == null || fechaDevolucion == null) {
             System.out.println("Debe seleccionar un cliente, un libro y una fecha de devolución.");
@@ -163,7 +164,7 @@ public class AlquilarLibros extends JFrame {
         String libroTitulo = libroSeleccionado.split(" - ")[0];
 
         Conexion conexion = new Conexion();
-        conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()));
+        conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()), new java.sql.Date(fechaDevolucionReal.getTime()));
 
         // Recargar listas
         cargarLibrosDisponibles();
