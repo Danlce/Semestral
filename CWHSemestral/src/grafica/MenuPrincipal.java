@@ -84,7 +84,7 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(list);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\pppppp.jpg"));
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\pppppp.jpg"));
 		lblNewLabel_2.setBounds(-19, -49, 852, 451);
 		contentPane.add(lblNewLabel_2);
 		

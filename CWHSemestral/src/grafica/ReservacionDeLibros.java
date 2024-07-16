@@ -97,7 +97,7 @@ public class ReservacionDeLibros extends JFrame {
         contentPane.add(lblNewLabel_1_1_2_1);
 
         JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1986.jpg"));
+        lblNewLabel.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1986.jpg"));
         lblNewLabel.setBounds(0, 0, 944, 456);
         contentPane.add(lblNewLabel);
 
