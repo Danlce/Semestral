@@ -45,7 +45,7 @@ public class MenuPrincipal extends JFrame {
 	 */
 	public MenuPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 859, 463);
+		setBounds(100, 100, 731, 464);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -55,17 +55,17 @@ public class MenuPrincipal extends JFrame {
 		JLabel lblNewLabel = new JLabel("Libreria Wilberto el mas maricon ");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Vivaldi", Font.PLAIN, 31));
-		lblNewLabel.setBounds(260, 21, 397, 69);
+		lblNewLabel.setBounds(148, 11, 397, 69);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Buscador:");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(141, 77, 109, 29);
+		lblNewLabel_1.setBounds(104, 85, 109, 29);
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBounds(219, 83, 219, 20);
+		textField.setBounds(185, 91, 219, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -76,16 +76,21 @@ public class MenuPrincipal extends JFrame {
 				// Lógica de búsqueda
 			}
 		});
-		btnNewButton_6.setBounds(442, 82, 89, 23);
+		btnNewButton_6.setBounds(414, 91, 89, 23);
 		contentPane.add(btnNewButton_6);
 		
 		List list = new List();
-		list.setBounds(229, 112, 530, 237);
+		list.setBounds(43, 132, 627, 243);
 		contentPane.add(list);
 		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\logoss.jpg"));
+		lblNewLabel_3.setBounds(525, 0, 227, 141);
+		contentPane.add(lblNewLabel_3);
+		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\pppppp.jpg"));
-		lblNewLabel_2.setBounds(-19, -49, 852, 451);
+		lblNewLabel_2.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\fondo-onda-desenfoque-particulas-abstractas-azul-sobre-fondo-futurista-hermosa-ilustracion-movimiento-que-fluye_36402-1226.jpg"));
+		lblNewLabel_2.setBounds(-13, -20, 807, 435);
 		contentPane.add(lblNewLabel_2);
 		
 		// Crear la barra de menú

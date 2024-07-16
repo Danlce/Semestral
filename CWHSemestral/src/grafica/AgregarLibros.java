@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class AgregarLibros extends JFrame {
 
@@ -52,7 +53,7 @@ public class AgregarLibros extends JFrame {
      */
     public AgregarLibros() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 690, 419);
+        setBounds(100, 100, 712, 432);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -60,116 +61,143 @@ public class AgregarLibros extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblCatalogoDeLibros = new JLabel("Agregar Libros");
+        lblCatalogoDeLibros.setForeground(new Color(255, 255, 255));
         lblCatalogoDeLibros.setFont(new Font("Vivaldi", Font.PLAIN, 31));
         lblCatalogoDeLibros.setBounds(109, 34, 315, 38);
         contentPane.add(lblCatalogoDeLibros);
 
         JLabel lblNewLabel_1 = new JLabel("Título:");
+        lblNewLabel_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1.setBounds(51, 116, 78, 20);
         contentPane.add(lblNewLabel_1);
 
         JLabel lblNewLabel_1_1 = new JLabel("Autor:");
+        lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_1.setBounds(51, 147, 78, 20);
         contentPane.add(lblNewLabel_1_1);
 
         JLabel lblNewLabel_1_2 = new JLabel("Año:");
+        lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_2.setBounds(51, 178, 65, 20);
         contentPane.add(lblNewLabel_1_2);
 
         JLabel lblNewLabel_1_3 = new JLabel("Género:");
+        lblNewLabel_1_3.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        lblNewLabel_1_3.setBounds(289, 116, 78, 20);
+        lblNewLabel_1_3.setBounds(368, 93, 78, 20);
         contentPane.add(lblNewLabel_1_3);
 
         JLabel lblNewLabel_1_4 = new JLabel("Idioma:");
+        lblNewLabel_1_4.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_4.setBounds(51, 209, 78, 20);
         contentPane.add(lblNewLabel_1_4);
 
         JLabel lblNewLabel_1_5 = new JLabel("Precio:");
+        lblNewLabel_1_5.setForeground(new Color(255, 255, 255));
         lblNewLabel_1_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
         lblNewLabel_1_5.setBounds(51, 240, 78, 20);
         contentPane.add(lblNewLabel_1_5);
 
         txtTitulo = new JTextField();
         txtTitulo.setColumns(10);
-        txtTitulo.setBounds(117, 116, 120, 20);
+        txtTitulo.setBounds(117, 116, 216, 20);
         contentPane.add(txtTitulo);
 
         textField_1 = new JTextField();
         textField_1.setColumns(10);
-        textField_1.setBounds(117, 147, 120, 20);
+        textField_1.setBounds(117, 147, 216, 20);
         contentPane.add(textField_1);
 
         textField_2 = new JTextField();
         textField_2.setColumns(10);
-        textField_2.setBounds(117, 178, 120, 20);
+        textField_2.setBounds(117, 178, 216, 20);
         contentPane.add(textField_2);
 
         // Crear checkboxes para géneros
         generoCheckboxes = new ArrayList<>();
         JCheckBox checkBoxFiccion = new JCheckBox("Ficción");
-        checkBoxFiccion.setBounds(357, 117, 80, 23);
+        checkBoxFiccion.setBackground(new Color(0, 0, 43));
+        checkBoxFiccion.setForeground(new Color(255, 255, 255));
+        checkBoxFiccion.setBounds(446, 117, 80, 23);
         contentPane.add(checkBoxFiccion);
         generoCheckboxes.add(checkBoxFiccion);
 
         JCheckBox checkBoxNoFiccion = new JCheckBox("No ficción");
-        checkBoxNoFiccion.setBounds(479, 117, 100, 23);
+        checkBoxNoFiccion.setBackground(new Color(0, 0, 40));
+        checkBoxNoFiccion.setForeground(new Color(255, 255, 255));
+        checkBoxNoFiccion.setBounds(559, 117, 100, 23);
         contentPane.add(checkBoxNoFiccion);
         generoCheckboxes.add(checkBoxNoFiccion);
 
         JCheckBox checkBoxCienciaFiccion = new JCheckBox("Ciencia ficción");
-        checkBoxCienciaFiccion.setBounds(357, 148, 120, 23);
+        checkBoxCienciaFiccion.setForeground(new Color(255, 255, 255));
+        checkBoxCienciaFiccion.setBackground(new Color(0, 0, 43));
+        checkBoxCienciaFiccion.setBounds(446, 147, 100, 23);
         contentPane.add(checkBoxCienciaFiccion);
         generoCheckboxes.add(checkBoxCienciaFiccion);
 
         JCheckBox checkBoxRomance = new JCheckBox("Romance");
-        checkBoxRomance.setBounds(357, 179, 80, 23);
+        checkBoxRomance.setForeground(new Color(255, 255, 255));
+        checkBoxRomance.setBackground(new Color(0, 0, 43));
+        checkBoxRomance.setBounds(446, 179, 80, 23);
         contentPane.add(checkBoxRomance);
         generoCheckboxes.add(checkBoxRomance);
 
         JCheckBox checkBoxSuspenso = new JCheckBox("Suspenso");
-        checkBoxSuspenso.setBounds(479, 148, 100, 23);
+        checkBoxSuspenso.setForeground(new Color(255, 255, 255));
+        checkBoxSuspenso.setBackground(new Color(0, 0, 43));
+        checkBoxSuspenso.setBounds(559, 148, 100, 23);
         contentPane.add(checkBoxSuspenso);
         generoCheckboxes.add(checkBoxSuspenso);
 
         JCheckBox checkBoxTerror = new JCheckBox("Terror");
-        checkBoxTerror.setBounds(479, 179, 80, 23);
+        checkBoxTerror.setForeground(new Color(255, 255, 255));
+        checkBoxTerror.setBackground(new Color(0, 0, 43));
+        checkBoxTerror.setBounds(559, 179, 80, 23);
         contentPane.add(checkBoxTerror);
         generoCheckboxes.add(checkBoxTerror);
 
         // Nuevos checkboxes para más géneros
         JCheckBox checkBoxAventura = new JCheckBox("Aventura");
-        checkBoxAventura.setBounds(357, 210, 100, 23);
+        checkBoxAventura.setBackground(new Color(0, 0, 43));
+        checkBoxAventura.setForeground(new Color(255, 255, 255));
+        checkBoxAventura.setBounds(446, 210, 100, 23);
         contentPane.add(checkBoxAventura);
         generoCheckboxes.add(checkBoxAventura);
 
         JCheckBox checkBoxHistoria = new JCheckBox("Historia");
-        checkBoxHistoria.setBounds(357, 241, 80, 23);
+        checkBoxHistoria.setForeground(new Color(255, 255, 255));
+        checkBoxHistoria.setBackground(new Color(0, 0, 43));
+        checkBoxHistoria.setBounds(446, 241, 80, 23);
         contentPane.add(checkBoxHistoria);
         generoCheckboxes.add(checkBoxHistoria);
 
         JCheckBox checkBoxFantasia = new JCheckBox("Fantasía");
-        checkBoxFantasia.setBounds(479, 210, 100, 23);
+        checkBoxFantasia.setForeground(new Color(255, 255, 255));
+        checkBoxFantasia.setBackground(new Color(0, 0, 43));
+        checkBoxFantasia.setBounds(559, 210, 100, 23);
         contentPane.add(checkBoxFantasia);
         generoCheckboxes.add(checkBoxFantasia);
 
         JCheckBox checkBoxPoesia = new JCheckBox("Poesía");
-        checkBoxPoesia.setBounds(479, 241, 80, 23);
+        checkBoxPoesia.setForeground(new Color(255, 255, 255));
+        checkBoxPoesia.setBackground(new Color(0, 0, 43));
+        checkBoxPoesia.setBounds(559, 241, 80, 23);
         contentPane.add(checkBoxPoesia);
         generoCheckboxes.add(checkBoxPoesia);
 
         textField_4 = new JTextField();
         textField_4.setColumns(10);
-        textField_4.setBounds(117, 211, 120, 20);
+        textField_4.setBounds(117, 211, 216, 20);
         contentPane.add(textField_4);
 
         textField_5 = new JTextField();
         textField_5.setColumns(10);
-        textField_5.setBounds(117, 242, 120, 20);
+        textField_5.setBounds(117, 242, 216, 20);
         contentPane.add(textField_5);
 
         JButton btnRegresar = new JButton("Regresar");
@@ -256,5 +284,11 @@ public class AgregarLibros extends JFrame {
         });
         btnAgregarLibro.setBounds(539, 330, 120, 23);
         contentPane.add(btnAgregarLibro);
+        
+        JLabel lblNewLabel = new JLabel("");
+        lblNewLabel.setBackground(new Color(0, 0, 43));
+        lblNewLabel.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
+        lblNewLabel.setBounds(-16, 0, 1018, 479);
+        contentPane.add(lblNewLabel);
     }
 }

@@ -71,7 +71,7 @@ public class Catalogo extends JFrame {
                 cargarLibros(); // Cargar la lista completa de libros nuevamente
             }
         });
-        btnBuscar_1.setBackground(new Color(51, 51, 255));
+        btnBuscar_1.setBackground(new Color(255, 255, 255));
         btnBuscar_1.setBounds(456, 146, 110, 23);
         contentPane.add(btnBuscar_1);
 
@@ -105,7 +105,7 @@ public class Catalogo extends JFrame {
         radioButtonGroup.add(rdbtnIdioma);
 
         JButton btnBuscar = new JButton("Buscar");
-        btnBuscar.setBackground(new Color(51, 51, 255));
+        btnBuscar.setBackground(new Color(255, 255, 255));
         btnBuscar.setBounds(408, 83, 89, 23);
         contentPane.add(btnBuscar);
 
@@ -131,7 +131,7 @@ public class Catalogo extends JFrame {
         contentPane.add(btnMostrar);
         
         JButton btnBorrar = new JButton("Borrar");
-        btnBorrar.setBackground(new Color(153, 102, 255));
+        btnBorrar.setBackground(new Color(255, 255, 255));
         btnBorrar.setBounds(620, 146, 89, 23);
         contentPane.add(btnBorrar);
         
