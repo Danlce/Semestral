@@ -287,7 +287,7 @@ public class AgregarLibros extends JFrame {
         
         JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setBackground(new Color(0, 0, 43));
-        lblNewLabel.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
+        lblNewLabel.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
         lblNewLabel.setBounds(-16, 0, 1018, 479);
         contentPane.add(lblNewLabel);
     }

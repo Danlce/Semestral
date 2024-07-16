@@ -32,7 +32,7 @@ public class MostrarDetallesLibro extends JFrame {
         contentPane.add(btnCerrar);
         
         lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\US\\Downloads\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1917.jpg"));
+        lblNewLabel.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\fondo-digital-abstracto-textura-placa-circuito-tecnologia-ilustracion-placa-base-electronica-concepto-comunicacion-e-ingenieria-ilustracion-vectorial_41981-1986.jpg"));
         lblNewLabel.setBounds(-31, -88, 828, 430);
         contentPane.add(lblNewLabel);
 

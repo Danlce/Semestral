@@ -120,7 +120,7 @@ public class EditarClientesActuales extends JFrame {
         contentPane.add(btnBorrar);
         
         lblNewLabel_1 = new JLabel("");
-        lblNewLabel_1.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
+        lblNewLabel_1.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\diagrama-circuito-tecnologia-azul-lineas-brillantes_1017-25619.jpg"));
         lblNewLabel_1.setBounds(-15, -51, 895, 493);
         contentPane.add(lblNewLabel_1);
 
