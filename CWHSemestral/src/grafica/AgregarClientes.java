@@ -111,7 +111,7 @@ public class AgregarClientes extends JFrame {
         contentPane.add(btnRegresar);
         
         JLabel lblNewLabel_2 = new JLabel("");
-        lblNewLabel_2.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\abstract-technology-concept-internet-futuristic-network-connection-human-communication-with-world-map-circle-future-technology-digital-on-hi-tech-dark-blue-background-illustration-vector.jpg"));
+        lblNewLabel_2.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\abstract-technology-concept-internet-futuristic-network-connection-human-communication-with-world-map-circle-future-technology-digital-on-hi-tech-dark-blue-background-illustration-vector.jpg"));
         lblNewLabel_2.setBounds(-266, -126, 1346, 620);
         contentPane.add(lblNewLabel_2);
 

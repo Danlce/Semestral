@@ -109,7 +109,7 @@ public class AlquilarLibros extends JFrame {
         contentPane.add(btnRegistroDeClientes);
         
         JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
+        lblNewLabel.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
         lblNewLabel.setBounds(0, -40, 756, 505);
         contentPane.add(lblNewLabel);
 
