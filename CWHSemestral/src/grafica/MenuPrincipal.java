@@ -89,13 +89,12 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-<<<<<<< HEAD
+
 		lblNewLabel_2.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\fondo-onda-desenfoque-particulas-abstractas-azul-sobre-fondo-futurista-hermosa-ilustracion-movimiento-que-fluye_36402-1226.jpg"));
 		lblNewLabel_2.setBounds(-13, -20, 807, 435);
-=======
+
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\pppppp.jpg"));
 		lblNewLabel_2.setBounds(-19, -49, 852, 451);
->>>>>>> branch 'master' of git@github.com:Danlce/Semestral.git
 		contentPane.add(lblNewLabel_2);
 		
 		// Crear la barra de menú
