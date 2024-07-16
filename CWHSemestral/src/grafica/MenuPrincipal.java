@@ -84,17 +84,13 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(list);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\logoss.jpg"));
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\logoss.jpg"));
 		lblNewLabel_3.setBounds(525, 0, 227, 141);
 		contentPane.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-
-		lblNewLabel_2.setIcon(new ImageIcon("D:\\mysql-connector-j-9.0.0\\fondo-onda-desenfoque-particulas-abstractas-azul-sobre-fondo-futurista-hermosa-ilustracion-movimiento-que-fluye_36402-1226.jpg"));
-		lblNewLabel_2.setBounds(-13, -20, 807, 435);
-
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\pppppp.jpg"));
-		lblNewLabel_2.setBounds(-19, -49, 852, 451);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\fondo-onda-desenfoque-particulas-abstractas-azul-sobre-fondo-futurista-hermosa-ilustracion-movimiento-que-fluye_36402-1226.jpg"));
+		lblNewLabel_2.setBounds(-21, -54, 799, 490);
 		contentPane.add(lblNewLabel_2);
 		
 		// Crear la barra de menú
