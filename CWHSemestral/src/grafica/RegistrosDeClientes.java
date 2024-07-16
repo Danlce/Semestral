@@ -208,28 +208,6 @@ public class RegistrosDeClientes extends JFrame {
         } else {
             listClientes.setModel(new DefaultListModel<>()); // Si está vacía, establecer un modelo vacío
         }
-
-        // Calcular y mostrar la amonestación para el cliente seleccionado
-        listClientes.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent arg0) {
-                String alquilerSeleccionado = listClientes.getSelectedValue();
-                if (alquilerSeleccionado != null) {
-                    String[] parts = alquilerSeleccionado.split(" - Alquiló: ");
-                    String nombreCliente = parts[0];
-                    String tituloLibro = parts[1].substring(0, parts[1].indexOf(","));
-
-                    // Obtener la fecha de devolución esperada y real desde la base de datos
-                    LocalDate fechaDevolucionEsperada = conexion.obtenerFechaDevolucionEsperada(nombreCliente, tituloLibro);
-                    LocalDate fechaDevolucionReal = conexion.obtenerFechaDevolucionReal(nombreCliente, tituloLibro);
-
-                    // Calcular la amonestación
-                    double amonestacion = conexion.calcularAmonestacion(fechaDevolucionEsperada, fechaDevolucionReal);
-
-                    // Mostrar la amonestación en el JLabel correspondiente
-                    lblAmonestacion.setText("Amonestación por días excedidos: $" + String.format("%.2f", amonestacion));
-                }
-            }
-        });
     }
 
     // Método para actualizar la lista de alquileres en la interfaz

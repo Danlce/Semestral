@@ -164,7 +164,8 @@ public class AlquilarLibros extends JFrame {
         String libroTitulo = libroSeleccionado.split(" - ")[0];
 
         Conexion conexion = new Conexion();
-        conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()), new java.sql.Date(fechaDevolucionReal.getTime()));
+        conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()), fechaDevolucionReal);
+
 
         // Recargar listas
         cargarLibrosDisponibles();

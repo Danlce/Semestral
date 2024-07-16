@@ -198,7 +198,7 @@ public class Conexion {
         }
         return libros;
     }
-    public void alquilarLibro(String nombreCliente, String tituloLibro, java.sql.Date fechaDevolucion, java.sql.Date fechaDevolucionReal) {
+    public void alquilarLibro(String nombreCliente, String tituloLibro, java.sql.Date fechaDevolucion, java.util.Date fechaDevolucionReal) {
         // Obtener el ID del libro por título
         int libroId = obtenerIdLibroPorTitulo(tituloLibro);
 
@@ -218,7 +218,7 @@ public class Conexion {
             preparedStatement.setString(3, tituloLibro);
             preparedStatement.setDate(4, fechaDevolucion);
             preparedStatement.setDate(5, fechaLimite);
-            preparedStatement.setDate(6, fechaDevolucionReal);
+            preparedStatement.setDate(6, (Date) fechaDevolucionReal);
 
             preparedStatement.executeUpdate();
             System.out.println("Libro alquilado correctamente por " + nombreCliente);
