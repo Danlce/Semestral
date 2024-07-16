@@ -152,8 +152,24 @@ public class Conexion {
         }
         return libros;
     }
+    public List<String> obtenerLibrosNoDisponibles() {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT titulo FROM libros WHERE disponible = false";
 
-    
+        try (Connection connection = conectar();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                String titulo = resultSet.getString("titulo");
+                libros.add(titulo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
+        
     public Libro obtenerLibroPorId(int id) {
         Libro libro = null;
         String sql = "SELECT * FROM libros WHERE id = ?";
