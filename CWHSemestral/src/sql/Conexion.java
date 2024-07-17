@@ -595,6 +595,30 @@ public class Conexion {
         }
         return libros;
     }
+    public List<String> buscarLibrosPorNombre(String nombre) {
+        List<String> libros = new ArrayList<>();
+        String sql = "SELECT id, titulo, año, autor FROM libros WHERE titulo LIKE ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, "%" + nombre + "%"); // Utilizamos LIKE para buscar coincidencias parciales
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String titulo = resultSet.getString("titulo");
+                int ano = resultSet.getInt("año");
+                String autor = resultSet.getString("autor");
+
+                libros.add(id + ": " + titulo + " (" + ano + ") - " + autor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return libros;
+    }
+
+
 
     
     public List<String> obtenerLibrosPorCodigo(String codigo) {

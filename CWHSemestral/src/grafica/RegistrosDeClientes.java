@@ -17,8 +17,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import sql.Conexion;
 
 public class RegistrosDeClientes extends JFrame {

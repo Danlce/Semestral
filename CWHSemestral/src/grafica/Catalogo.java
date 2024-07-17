@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import logica.Libro;
 import sql.Conexion;
 import java.awt.Color;
-import javax.swing.SwingConstants;
 
 public class Catalogo extends JFrame {
 
