@@ -169,7 +169,52 @@ public class Conexion {
         }
         return libros;
     }
-        
+    public void realizarReserva(String cliente, String libro) {
+        String sql = "INSERT INTO reservas (cliente, libro, fecha_reserva) VALUES (?, ?, CURDATE())";
+
+        // Aquí obtenemos solo el nombre del cliente, asumiendo que el nombre no contiene espacios
+        String nombreCliente = cliente.split(" ")[0];
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, nombreCliente); // Insertamos solo el nombre del cliente
+            preparedStatement.setString(2, libro);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Reserva realizada correctamente para " + nombreCliente + " - " + libro);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void actualizarReservaAAlquiler(String libro) {
+        // Buscar reservas activas para el libro especificado que ahora está disponible
+        String sqlBuscarReservas = "SELECT id, cliente FROM reservas WHERE libro = ?";
+        String sqlActualizarReserva = "UPDATE reservas SET estado = 'Alquiler' WHERE id = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement psBuscar = connection.prepareStatement(sqlBuscarReservas);
+             PreparedStatement psActualizar = connection.prepareStatement(sqlActualizarReserva)) {
+
+            psBuscar.setString(1, libro);
+            ResultSet rs = psBuscar.executeQuery();
+
+            while (rs.next()) {
+                int idReserva = rs.getInt("id");
+                String cliente = rs.getString("cliente");
+
+                // Actualizar la reserva a alquiler
+                psActualizar.setInt(1, idReserva);
+                psActualizar.executeUpdate();
+
+                // Llamar al método de alquilar libro en ReservacionDeLibros
+                alquilarLibro(cliente, libro, Date.valueOf(LocalDate.now().plusDays(7)), null);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+   
     public Libro obtenerLibroPorId(int id) {
         Libro libro = null;
         String sql = "SELECT * FROM libros WHERE id = ?";

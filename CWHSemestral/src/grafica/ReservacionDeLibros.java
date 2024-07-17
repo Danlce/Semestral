@@ -1,7 +1,7 @@
 package grafica;
 
 import java.awt.EventQueue;
-
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,11 +11,12 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.util.List;
-
+import javax.swing.JOptionPane;
 import sql.Conexion; // Asegúrate de importar tu clase de conexión correctamente
 
 public class ReservacionDeLibros extends JFrame {
@@ -78,9 +79,29 @@ public class ReservacionDeLibros extends JFrame {
         JButton btnReservar = new JButton("Reservar");
         btnReservar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Acción al presionar el botón Reservar
+                // Obtener el cliente seleccionado
+                String clienteSeleccionado = listClientes.getSelectedValue();
+                if (clienteSeleccionado == null) {
+                    JOptionPane.showMessageDialog(null, "Selecciona un cliente para reservar.");
+                    return;
+                }
+
+                // Obtener el libro no disponible seleccionado
+                String libroSeleccionado = listLibrosNoDisponibles.getSelectedValue();
+                if (libroSeleccionado == null) {
+                    JOptionPane.showMessageDialog(null, "Selecciona un libro no disponible para reservar.");
+                    return;
+                }
+
+                // Llamar a la función para realizar la reserva en la base de datos
+                Conexion conexion = new Conexion();
+                conexion.realizarReserva(clienteSeleccionado, libroSeleccionado);
+
+                // Actualizar la lista de libros no disponibles después de la reserva
+                cargarLibrosNoDisponibles();
             }
         });
+
         btnReservar.setBounds(579, 383, 93, 23);
         contentPane.add(btnReservar);
 
@@ -101,27 +122,26 @@ public class ReservacionDeLibros extends JFrame {
         lblNewLabel.setBounds(0, 0, 944, 456);
         contentPane.add(lblNewLabel);
 
-    
         cargarLibrosNoDisponibles();
         // Cargar clientes al iniciar la ventana
         cargarClientes();
-
-       
     }
 
     private void cargarClientes() {
         Conexion conexion = new Conexion(); // Crear instancia de la clase de conexión
         List<String> clientes = conexion.obtenerClientes(); // Obtener lista de clientes desde la base de datos
 
-        // Crear un modelo de lista y añadir los clientes obtenidos
-        DefaultListModel<String> modeloClientes = new DefaultListModel<>();
+        // Crear un modelo de lista con capacidad de selección única
+        DefaultComboBoxModel<String> modeloClientes = new DefaultComboBoxModel<>();
         for (String cliente : clientes) {
-            modeloClientes.addElement(cliente);
+            modeloClientes.addElement(cliente); // Agregar cada cliente al modelo
         }
 
         // Asignar el modelo de lista al JList de clientes
         listClientes.setModel(modeloClientes);
     }
+
+
     private void cargarLibrosNoDisponibles() {
         Conexion conexion = new Conexion(); // Asegúrate de tener una clase de conexión implementada
         List<String> librosNoDisponibles = conexion.obtenerLibrosNoDisponibles(); // Obtener lista de libros no disponibles
@@ -136,6 +156,3 @@ public class ReservacionDeLibros extends JFrame {
         listLibrosNoDisponibles.setModel(modeloLibros);
     }
 }
-
-
-   

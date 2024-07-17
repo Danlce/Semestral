@@ -143,7 +143,7 @@ public class EditarClientesActuales extends JFrame {
                     if (confirm == JOptionPane.YES_OPTION) {
                         conexion.borrarCliente(nombre);
                         listModel.removeElementAt(selectedIndex);
-                    }
+                                         }
                 } else {
                     JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un cliente de la lista para borrar", "Error", JOptionPane.ERROR_MESSAGE);
                 }
