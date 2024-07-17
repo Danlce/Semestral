@@ -32,8 +32,8 @@ public class AgregarClientes extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AgregarClientes frame = new AgregarClientes();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -37,8 +38,8 @@ public class RegistrosDeClientes extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    RegistrosDeClientes frame = new RegistrosDeClientes();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,6 +87,8 @@ public class RegistrosDeClientes extends JFrame {
                                 amonestacion += 2.50;
                             }
                         }
+                      
+
 
                         // Mostrar la amonestación en el JLabel correspondiente
                         lblAmonestacion.setText("Amonestación por días excedidos: $" + String.format("%.2f", amonestacion));
@@ -96,10 +99,14 @@ public class RegistrosDeClientes extends JFrame {
                         // Verificar si alguna reserva puede convertirse en alquiler debido a la disponibilidad del libro
                         verificarReservasActivas();
                     }
-                }
+                                    }
 
                 // Actualizar la lista de alquileres mostrada en la interfaz después de procesar todos los alquileres
                 actualizarListaAlquileres();
+                JOptionPane.showMessageDialog(contentPane,
+                        "Actualización exitosa de alquileres",
+                        "Actualización Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         });
         
@@ -215,14 +222,25 @@ public class RegistrosDeClientes extends JFrame {
                     String tituloLibro = parts[1].substring(0, parts[1].indexOf(","));
 
                     // Utilización de la conexión para borrar el alquiler
-                    conexion.borrarAlquiler(nombreCliente, tituloLibro);
+                    boolean eliminado = conexion.borrarAlquiler(nombreCliente, tituloLibro);
 
-                    // Recargar la lista de clientes después de borrar el alquiler
-                    cargarClientes();
+                    if (eliminado) {
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Eliminación exitosa del alquiler",
+                                "Alquiler Eliminado",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        
+                        // Recargar la lista de clientes después de borrar el alquiler
+                        cargarClientes();
+                    } else {
+                        JOptionPane.showMessageDialog(contentPane,
+                                "No se pudo eliminar el alquiler seleccionado.",
+                                "Error de Eliminación",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
-
         // Cargar clientes al iniciar la ventana.
         cargarClientes();
     }

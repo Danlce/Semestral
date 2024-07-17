@@ -13,6 +13,7 @@ import logica.CustomDateChooser;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.DefaultListModel;
 import sql.Conexion;
@@ -34,8 +35,8 @@ public class AlquilarLibros extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AlquilarLibros frame = new AlquilarLibros();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -169,7 +170,10 @@ public class AlquilarLibros extends JFrame {
         Date fechaDevolucionReal = new java.sql.Date(System.currentTimeMillis()); // Aquí obtienes la fecha actual, ajusta según necesites
 
         if (clienteSeleccionado == null || libroSeleccionado == null || fechaDevolucion == null) {
-            System.out.println("Debe seleccionar un cliente, un libro y una fecha de devolución.");
+            JOptionPane.showMessageDialog(contentPane,
+                    "Debe seleccionar un cliente, un libro y una fecha de devolución.",
+                    "Error de Alquiler",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -178,7 +182,11 @@ public class AlquilarLibros extends JFrame {
 
         Conexion conexion = new Conexion();
         conexion.alquilarLibro(clienteNombre, libroTitulo, new java.sql.Date(fechaDevolucion.getTime()), fechaDevolucionReal);
-
+        
+        JOptionPane.showMessageDialog(contentPane,
+                "Alquiler Añadido",
+                "Alquiler Exitoso",
+                JOptionPane.INFORMATION_MESSAGE);
 
         // Recargar listas
         cargarLibrosDisponibles();

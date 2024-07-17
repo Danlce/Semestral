@@ -32,8 +32,8 @@ public class ReservacionDeLibros extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ReservacionDeLibros frame = new ReservacionDeLibros();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -95,20 +95,23 @@ public class ReservacionDeLibros extends JFrame {
                 // Obtener el cliente seleccionado
                 String clienteSeleccionado = listClientes.getSelectedValue();
                 if (clienteSeleccionado == null) {
-                    JOptionPane.showMessageDialog(null, "Selecciona un cliente para reservar.");
+                    JOptionPane.showMessageDialog(null, "Selecciona un cliente para reservar.", "Error de Reserva", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 // Obtener el libro no disponible seleccionado
                 String libroSeleccionado = listLibrosNoDisponibles.getSelectedValue();
                 if (libroSeleccionado == null) {
-                    JOptionPane.showMessageDialog(null, "Selecciona un libro no disponible para reservar.");
+                    JOptionPane.showMessageDialog(null, "Selecciona un libro no disponible para reservar.", "Error de Reserva", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 // Llamar a la función para realizar la reserva en la base de datos
                 Conexion conexion = new Conexion();
                 conexion.realizarReserva(clienteSeleccionado, libroSeleccionado);
+
+                // Mostrar mensaje de reserva exitosa
+                JOptionPane.showMessageDialog(null, "Reserva realizada exitosamente.", "Reserva Exitosa", JOptionPane.INFORMATION_MESSAGE);
 
                 // Actualizar la lista de libros no disponibles después de la reserva
                 cargarLibrosNoDisponibles();

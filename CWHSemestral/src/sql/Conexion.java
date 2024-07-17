@@ -80,7 +80,25 @@ public class Conexion {
         }
         
     }
+    public boolean eliminarLibro(int idLibro) {
+        String sql = "DELETE FROM libros WHERE id = ?";
 
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, idLibro);
+            int filasBorradas = preparedStatement.executeUpdate();
+            if (filasBorradas > 0) {
+                System.out.println("Libro eliminado exitosamente!");
+                return true; // Indicar que la eliminación fue exitosa
+            } else {
+                System.out.println("No se encontró ningún libro con el ID especificado.");
+                return false; // Indicar que no se encontró el libro a eliminar
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Indicar que hubo un error durante la eliminación
+        }
+    }
     public void actualizarCliente(String nombreOriginal, String nuevoNombre, String nuevoTelefono, String nuevaDireccion) {
         String sql = "UPDATE clientes SET nombre = ?, telefono = ?, direccion = ? WHERE nombre = ?";
 
@@ -454,7 +472,7 @@ public class Conexion {
     }
 
 
-    public void borrarAlquiler(String nombreCliente, String tituloLibro) {
+    public boolean borrarAlquiler(String nombreCliente, String tituloLibro) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -470,14 +488,24 @@ public class Conexion {
             preparedStatement.setString(1, nombreCliente);
             preparedStatement.setString(2, tituloLibro);
 
-            preparedStatement.executeUpdate();
-            System.out.println("Alquiler borrado correctamente para " + nombreCliente);
+            int rowsAffected = preparedStatement.executeUpdate();
+            
+            // Verificar si se eliminó algún registro (rowsAffected > 0)
+            if (rowsAffected > 0) {
+                System.out.println("Alquiler borrado correctamente para " + nombreCliente);
 
-            // Actualizar la disponibilidad del libro a true
-            actualizarDisponibilidadLibro(libroId, true);
+                // Actualizar la disponibilidad del libro a true
+                actualizarDisponibilidadLibro(libroId, true);
+
+                return true; // Indicar que la eliminación fue exitosa
+            } else {
+                System.out.println("No se encontró el alquiler para " + nombreCliente + " y " + tituloLibro);
+                return false; // Indicar que no se encontró el alquiler para eliminar
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false; // Manejar cualquier error y retornar false
         } finally {
             // Cerrar los recursos
             try {
@@ -490,7 +518,8 @@ public class Conexion {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }}
+        }
+    }
     
         public LocalDate obtenerFechaDevolucionEsperada(String nombreCliente, String tituloLibro) {
             LocalDate fechaDevolucionEsperada = null;

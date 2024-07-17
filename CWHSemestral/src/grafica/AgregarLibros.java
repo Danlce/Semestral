@@ -39,8 +39,8 @@ public class AgregarLibros extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AgregarLibros frame = new AgregarLibros();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -44,8 +44,8 @@ public class Catalogo extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Catalogo frame = new Catalogo();
-                    frame.setVisible(true);
+                	Presentacion presentacion = new Presentacion();
+                	presentacion.setVisible(true);    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -71,18 +71,18 @@ public class Catalogo extends JFrame {
                 cargarLibros(); // Cargar la lista completa de libros nuevamente
             }
         });
-        
+
         JButton btnAgregarLibro = new JButton("Agregar Libro");
         btnAgregarLibro.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    // Cerrar la ventana actual
-                    dispose();
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual
+                dispose();
 
-                    // Abrir la ventana de AgregarLibros
-                    AgregarLibros agregarLibros = new AgregarLibros();
-                    agregarLibros.setVisible(true);
-                }
-            });
+                // Abrir la ventana de AgregarLibros
+                AgregarLibros agregarLibros = new AgregarLibros();
+                agregarLibros.setVisible(true);
+            }
+        });
         btnAgregarLibro.setBackground(Color.WHITE);
         btnAgregarLibro.setBounds(456, 376, 110, 23);
         contentPane.add(btnAgregarLibro);
@@ -217,6 +217,41 @@ public class Catalogo extends JFrame {
                     menuPrincipal = new MenuPrincipal();
                 }
                 menuPrincipal.setVisible(true);
+            }
+        });
+
+        // Action Listener para el botón Borrar
+        btnBorrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener el libro seleccionado en la lista
+                String selectedBook = list.getSelectedValue();
+                if (selectedBook != null && !selectedBook.isEmpty()) {
+                    // Obtener el ID del libro seleccionado (asumiendo que está al inicio del string)
+                    int idLibro = Integer.parseInt(selectedBook.split(":")[0].trim());
+                    // Borrar el libro de la base de datos
+                    boolean eliminado = conexion.eliminarLibro(idLibro);
+                    if (eliminado) {
+                        // Mostrar mensaje de eliminación exitosa
+                        JOptionPane.showMessageDialog(contentPane,
+                                "Eliminación Exitosa",
+                                "Libro Eliminado",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        // Recargar la lista de libros
+                        cargarLibros();
+                    } else {
+                        // Mostrar mensaje de error si no se pudo eliminar
+                        JOptionPane.showMessageDialog(contentPane,
+                                "No se pudo eliminar el libro seleccionado.",
+                                "Error de Eliminación",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    // Mostrar mensaje si no se seleccionó ningún libro
+                    JOptionPane.showMessageDialog(contentPane,
+                            "Debe seleccionar un libro para eliminar.",
+                            "Ningún Libro Seleccionado",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
