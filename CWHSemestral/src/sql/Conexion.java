@@ -152,6 +152,27 @@ public class Conexion {
         }
         return libros;
     }
+    public List<String> obtenerClientesPorNombre(String nombre) {
+        List<String> clientes = new ArrayList<>();
+        String sql = "SELECT nombre, direccion FROM clientes WHERE nombre LIKE ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, "%" + nombre + "%");
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String cliente = resultSet.getString("nombre") + " - " + resultSet.getString("direccion");
+                    clientes.add(cliente);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return clientes;
+    }
+
     public List<String> obtenerLibrosNoDisponibles() {
         List<String> libros = new ArrayList<>();
         String sql = "SELECT titulo FROM libros WHERE disponible = false";
@@ -186,32 +207,102 @@ public class Conexion {
             e.printStackTrace();
         }
     }
-    public void actualizarReservaAAlquiler(String libro) {
-        // Buscar reservas activas para el libro especificado que ahora está disponible
-        String sqlBuscarReservas = "SELECT id, cliente FROM reservas WHERE libro = ?";
-        String sqlActualizarReserva = "UPDATE reservas SET estado = 'Alquiler' WHERE id = ?";
+    public void convertirReservaAAlquiler(String cliente, String libro, LocalDate fechaAlquiler, LocalDate fechaDevolucion, LocalDate fechaLimiteDevolucion) {
+        // Obtener el nombre del cliente (primer nombre asumiendo que el nombre no contiene espacios)
+        String nombreCliente = cliente.split(" ")[0];
+
+        // Obtener el ID del libro por título
+        int libroId = obtenerIdLibroPorTitulo(libro);
+
+        // Insertar en la tabla de alquileres con las fechas proporcionadas
+        String sqlInsertAlquiler = "INSERT INTO alquileres (nombre_cliente, titulo_libro, fecha_alquiler, fecha_devolucion, fecha_limite_devolucion, importe_amonestacion) " +
+                                   "VALUES (?, ?, ?, ?, ?, 0)";
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlInsertAlquiler)) {
+
+            preparedStatement.setString(1, nombreCliente);
+            preparedStatement.setString(2, libro);
+            preparedStatement.setDate(3, Date.valueOf(fechaAlquiler));
+            preparedStatement.setDate(4, Date.valueOf(fechaDevolucion));
+            preparedStatement.setDate(5, Date.valueOf(fechaLimiteDevolucion));
+
+            preparedStatement.executeUpdate();
+            System.out.println("Reserva convertida a alquiler correctamente para " + nombreCliente + " - " + libro);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Actualizar la disponibilidad del libro
+        actualizarDisponibilidadLibro(libroId, false);
+
+        // Eliminar la reserva
+        String sqlDeleteReserva = "DELETE FROM reservas WHERE cliente = ? AND libro = ?";
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteReserva)) {
+
+            preparedStatement.setString(1, nombreCliente);
+            preparedStatement.setString(2, libro);
+
+            preparedStatement.executeUpdate();
+            System.out.println("Reserva eliminada correctamente para " + nombreCliente + " - " + libro);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void verificarReservasActivas() {
+        List<String> reservasActivas = obtenerReservasActivas();
+        
+        for (String reserva : reservasActivas) {
+            String[] partes = reserva.split("-");
+            String cliente = partes[0].trim();
+            String libro = partes[1].trim();
+
+            // Verificar si el libro está disponible
+            boolean libroDisponible = verificarDisponibilidadLibro(libro);
+
+            if (libroDisponible) {
+                // Convertir la reserva en alquiler
+                convertirReservaAAlquiler(cliente, libro, null, null, null);
+            }
+        }
+    }
+
+    public List<String> obtenerReservasActivas() {
+        List<String> reservas = new ArrayList<>();
+        String sql = "SELECT cliente, libro FROM reservas";
 
         try (Connection connection = conectar();
-             PreparedStatement psBuscar = connection.prepareStatement(sqlBuscarReservas);
-             PreparedStatement psActualizar = connection.prepareStatement(sqlActualizarReserva)) {
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
 
-            psBuscar.setString(1, libro);
-            ResultSet rs = psBuscar.executeQuery();
-
-            while (rs.next()) {
-                int idReserva = rs.getInt("id");
-                String cliente = rs.getString("cliente");
-
-                // Actualizar la reserva a alquiler
-                psActualizar.setInt(1, idReserva);
-                psActualizar.executeUpdate();
-
-                // Llamar al método de alquilar libro en ReservacionDeLibros
-                alquilarLibro(cliente, libro, Date.valueOf(LocalDate.now().plusDays(7)), null);
+            while (resultSet.next()) {
+                String cliente = resultSet.getString("cliente");
+                String libro = resultSet.getString("libro");
+                reservas.add(cliente + " - " + libro);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return reservas;
+    }
+
+    public boolean verificarDisponibilidadLibro(String tituloLibro) {
+        boolean disponible = false;
+        String sql = "SELECT disponible FROM libros WHERE titulo = ?";
+
+        try (Connection connection = conectar();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, tituloLibro);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                disponible = resultSet.getBoolean("disponible");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return disponible;
     }
 
    

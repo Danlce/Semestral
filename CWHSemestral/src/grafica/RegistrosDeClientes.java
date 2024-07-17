@@ -32,6 +32,8 @@ public class RegistrosDeClientes extends JFrame {
     private JLabel lblNewLabel_2;
     private JButton btnActualizar;
     private JLabel lblAmonestacion;
+    private JButton btnAlquilar;
+    private JButton btnReservar;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -58,40 +60,73 @@ public class RegistrosDeClientes extends JFrame {
 
         btnActualizar = new JButton("Actualizar");
         btnActualizar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-                String alquilerSeleccionado = listClientes.getSelectedValue();
-                if (alquilerSeleccionado != null) {
-                    String[] parts = alquilerSeleccionado.split(" - Alquiló: ");
-                    String nombreCliente = parts[0];
-                    String tituloLibro = parts[1].substring(0, parts[1].indexOf(","));
+            public void actionPerformed(ActionEvent e) {
+                // Obtener todos los alquileres
+                DefaultListModel<String> modeloLista = (DefaultListModel<String>) listClientes.getModel();
+                int size = modeloLista.getSize();
+                
+                // Iterar sobre cada alquiler y actualizar
+                for (int i = 0; i < size; i++) {
+                    String alquilerSeleccionado = modeloLista.getElementAt(i);
+                    if (alquilerSeleccionado != null) {
+                        String[] parts = alquilerSeleccionado.split(" - Alquiló: ");
+                        String nombreCliente = parts[0];
+                        String tituloLibro = parts[1].substring(0, parts[1].indexOf(","));
 
-                    // Llamar al método para actualizar la fecha de devolución real
-                    conexion.actualizarFechaDevolucionReal(nombreCliente, tituloLibro);
+                        // Llamar al método para actualizar la fecha de devolución real
+                        conexion.actualizarFechaDevolucionReal(nombreCliente, tituloLibro);
 
-                    // Calcular la nueva amonestación
-                    LocalDate fechaDevolucionEsperada = conexion.obtenerFechaDevolucionEsperada(nombreCliente, tituloLibro);
-                    LocalDate fechaDevolucionReal = conexion.obtenerFechaDevolucionReal(nombreCliente, tituloLibro);
-                    double amonestacion = conexion.calcularAmonestacion(fechaDevolucionEsperada, fechaDevolucionReal);
+                        // Calcular la nueva amonestación
+                        LocalDate fechaDevolucionEsperada = conexion.obtenerFechaDevolucionEsperada(nombreCliente, tituloLibro);
+                        LocalDate fechaDevolucionReal = conexion.obtenerFechaDevolucionReal(nombreCliente, tituloLibro);
+                        double amonestacion = conexion.calcularAmonestacion(fechaDevolucionEsperada, fechaDevolucionReal);
 
-                    // Aumentar la amonestación si la diferencia es mayor a 7 días
-                    if (fechaDevolucionReal != null && fechaDevolucionEsperada != null) {
-                        long diasExcedidos = ChronoUnit.DAYS.between(fechaDevolucionEsperada, fechaDevolucionReal);
-                        if (diasExcedidos > 7) {
-                            amonestacion += 2.50;
+                        // Aumentar la amonestación si la diferencia es mayor a 7 días
+                        if (fechaDevolucionReal != null && fechaDevolucionEsperada != null) {
+                            long diasExcedidos = ChronoUnit.DAYS.between(fechaDevolucionEsperada, fechaDevolucionReal);
+                            if (diasExcedidos > 7) {
+                                amonestacion += 2.50;
+                            }
                         }
+
+                        // Mostrar la amonestación en el JLabel correspondiente
+                        lblAmonestacion.setText("Amonestación por días excedidos: $" + String.format("%.2f", amonestacion));
+
+                        // Actualizar la amonestación en la base de datos
+                        conexion.actualizarAmonestacion(nombreCliente, tituloLibro, amonestacion);
+
+                        // Verificar si alguna reserva puede convertirse en alquiler debido a la disponibilidad del libro
+                        verificarReservasActivas();
                     }
-
-                    // Mostrar la amonestación en el JLabel correspondiente
-                    lblAmonestacion.setText("Amonestación por días excedidos: $" + String.format("%.2f", amonestacion));
-
-                    // Actualizar la amonestación en la base de datos
-                    conexion.actualizarAmonestacion(nombreCliente, tituloLibro, amonestacion);
-
-                    // Actualizar la lista de alquileres mostrada en la interfaz
-                    actualizarListaAlquileres();
                 }
+
+                // Actualizar la lista de alquileres mostrada en la interfaz después de procesar todos los alquileres
+                actualizarListaAlquileres();
             }
         });
+        
+        btnReservar = new JButton("Reservar");
+        btnReservar.setBounds(388, 383, 89, 23);
+        contentPane.add(btnReservar);
+        btnReservar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cerrar la ventana actual
+                ReservacionDeLibros frame = new ReservacionDeLibros(); // Crear nueva instancia de ReservacionDeLibros
+                frame.setVisible(true); // Mostrar la ventana de reservación de libros
+            }
+        });
+        
+        btnAlquilar = new JButton("Alquilar");
+        btnAlquilar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cerrar la ventana actual
+                AlquilarLibros frame = new AlquilarLibros(); // Crear nueva instancia de AlquilarLibros
+                frame.setVisible(true); // Mostrar la ventana de alquiler de libros
+            }
+        });
+        btnAlquilar.setBounds(388, 350, 89, 23);
+        contentPane.add(btnAlquilar);
+
         btnActualizar.setBounds(496, 383, 93, 23);
         contentPane.add(btnActualizar);
 
@@ -220,5 +255,28 @@ public class RegistrosDeClientes extends JFrame {
         }
 
         listClientes.setModel(modeloLista); // Asignar el nuevo modelo a tu JList (listClientes)
+    }
+
+    private void verificarReservasActivas() {
+        List<String> reservasActivas = conexion.obtenerReservasActivas();
+
+        for (String reserva : reservasActivas) {
+            String[] partes = reserva.split("-");
+            String cliente = partes[0].trim();
+            String libro = partes[1].trim();
+
+            // Verificar disponibilidad del libro
+            boolean libroDisponible = conexion.verificarDisponibilidadLibro(libro);
+
+            if (libroDisponible) {
+                // Establecer fechas automáticas
+                LocalDate fechaAlquiler = LocalDate.now();
+                LocalDate fechaDevolucion = fechaAlquiler.plusDays(7);
+                LocalDate fechaLimiteDevolucion = fechaAlquiler.plusDays(14);
+
+                // Convertir la reserva en alquiler con las fechas automáticas
+                conexion.convertirReservaAAlquiler(cliente, libro, fechaAlquiler, fechaDevolucion, fechaLimiteDevolucion);
+            }
+        }
     }
 }

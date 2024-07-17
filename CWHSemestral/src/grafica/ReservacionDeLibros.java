@@ -1,23 +1,22 @@
 package grafica;
 
 import java.awt.EventQueue;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JList;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-
+import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
-import sql.Conexion; // Asegúrate de importar tu clase de conexión correctamente
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import sql.Conexion;
 
 public class ReservacionDeLibros extends JFrame {
 
@@ -53,6 +52,18 @@ public class ReservacionDeLibros extends JFrame {
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        
+        JButton btnRegistroDeClientes = new JButton("Registro de Clientes");
+        btnRegistroDeClientes.setBounds(407, 383, 153, 23);
+        contentPane.add(btnRegistroDeClientes);
+        btnRegistroDeClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RegistrosDeClientes registrosDeClientes = new RegistrosDeClientes();
+                registrosDeClientes.setVisible(true);
+                dispose(); // Cierra la ventana actual (ReservacionDeLibros)
+            }
+        });
+        
         listLibrosNoDisponibles = new JList<>();
         listLibrosNoDisponibles.setBounds(362, 62, 310, 298);
         contentPane.add(listLibrosNoDisponibles);
@@ -70,7 +81,9 @@ public class ReservacionDeLibros extends JFrame {
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Acción al presionar el botón Regresar
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
+                menuPrincipal.setVisible(true);
+                dispose(); // Cierra la ventana actual (ReservacionDeLibros)
             }
         });
         btnRegresar.setBounds(37, 383, 93, 23);
@@ -140,7 +153,6 @@ public class ReservacionDeLibros extends JFrame {
         // Asignar el modelo de lista al JList de clientes
         listClientes.setModel(modeloClientes);
     }
-
 
     private void cargarLibrosNoDisponibles() {
         Conexion conexion = new Conexion(); // Asegúrate de tener una clase de conexión implementada

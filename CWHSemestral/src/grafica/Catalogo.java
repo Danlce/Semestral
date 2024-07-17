@@ -31,12 +31,13 @@ public class Catalogo extends JFrame {
     private MostrarDetallesLibro detallesFrame; // Referencia al frame de detalles abierto
     private ButtonGroup radioButtonGroup;
 
-    
     private JRadioButton rdbtnAutor;
     private JRadioButton rdbtnCodigo;
     private JRadioButton rdbtnAnio;
     private JRadioButton rdbtnIdioma;
- 
+
+    private MenuPrincipal menuPrincipal; // Referencia al frame de MenuPrincipal
+
     /**
      * Launch the application.
      */
@@ -64,13 +65,28 @@ public class Catalogo extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+
         JButton btnBuscar_1 = new JButton("Lista Normal");
         btnBuscar_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cargarLibros(); // Cargar la lista completa de libros nuevamente
             }
         });
+        
+        JButton btnAgregarLibro = new JButton("Agregar Libro");
+        btnAgregarLibro.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Cerrar la ventana actual
+                    dispose();
+
+                    // Abrir la ventana de AgregarLibros
+                    AgregarLibros agregarLibros = new AgregarLibros();
+                    agregarLibros.setVisible(true);
+                }
+            });
+        btnAgregarLibro.setBackground(Color.WHITE);
+        btnAgregarLibro.setBounds(456, 376, 110, 23);
+        contentPane.add(btnAgregarLibro);
         btnBuscar_1.setBackground(new Color(255, 255, 255));
         btnBuscar_1.setBounds(456, 146, 110, 23);
         contentPane.add(btnBuscar_1);
@@ -129,16 +145,16 @@ public class Catalogo extends JFrame {
         btnMostrar.setBackground(new Color(102, 153, 255));
         btnMostrar.setBounds(589, 376, 120, 23);
         contentPane.add(btnMostrar);
-        
+
         JButton btnBorrar = new JButton("Borrar");
         btnBorrar.setBackground(new Color(255, 255, 255));
         btnBorrar.setBounds(620, 146, 89, 23);
         contentPane.add(btnBorrar);
-        
+
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.setBounds(22, 376, 89, 23);
         contentPane.add(btnRegresar);
-        
+
         JLabel lblNewLabel_1 = new JLabel("");
         lblNewLabel_1.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));
         lblNewLabel_1.setBounds(0, -21, 864, 475);
@@ -155,7 +171,7 @@ public class Catalogo extends JFrame {
             }
         });
 
-     // Action Listener para el botón Buscar
+        // Action Listener para el botón Buscar
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Obtener el texto ingresado en el campo de búsqueda
@@ -168,22 +184,22 @@ public class Catalogo extends JFrame {
                             "Debe ingresar un criterio de búsqueda antes de buscar.",
                             "Campo de Búsqueda Vacío",
                             JOptionPane.WARNING_MESSAGE);
-                    
+
                     return; // Salir del método sin hacer nada más
                 }
 
                 // Verificar que se haya seleccionado algún criterio de búsqueda
                 if (!radioButtonGroup.isSelected(rdbtnAutor.getModel()) &&
-                    !radioButtonGroup.isSelected(rdbtnCodigo.getModel()) &&
-                    !radioButtonGroup.isSelected(rdbtnAnio.getModel()) &&
-                    !radioButtonGroup.isSelected(rdbtnIdioma.getModel())) {
-                    
+                        !radioButtonGroup.isSelected(rdbtnCodigo.getModel()) &&
+                        !radioButtonGroup.isSelected(rdbtnAnio.getModel()) &&
+                        !radioButtonGroup.isSelected(rdbtnIdioma.getModel())) {
+
                     // Mostrar mensaje de advertencia
                     JOptionPane.showMessageDialog(contentPane,
                             "Debe seleccionar un criterio de búsqueda antes de buscar.",
                             "Criterio de Búsqueda No Seleccionado",
                             JOptionPane.WARNING_MESSAGE);
-                    
+
                     return; // Salir del método sin hacer nada más
                 }
 
@@ -191,6 +207,19 @@ public class Catalogo extends JFrame {
             }
         });
 
+        // Action Listener para el botón Regresar
+        btnRegresar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual
+                dispose();
+
+                // Abrir la ventana de MenuPrincipal si está creada
+                if (menuPrincipal == null) {
+                    menuPrincipal = new MenuPrincipal();
+                }
+                menuPrincipal.setVisible(true);
+            }
+        });
 
         // Cargar libros al inicio
         cargarLibros();
@@ -216,7 +245,7 @@ public class Catalogo extends JFrame {
         }
     }
 
- // Método para filtrar libros según el criterio seleccionado
+    // Método para filtrar libros según el criterio seleccionado
     private void filtrarLibros() {
         String criterio = textField.getText().trim();
         List<String> librosFiltrados = null;
@@ -235,7 +264,7 @@ public class Catalogo extends JFrame {
                 librosFiltrados = conexion.obtenerLibrosPorAnio(Integer.parseInt(criterio));
             } else if (radioButtonGroup.isSelected(rdbtnIdioma.getModel())) {
                 librosFiltrados = conexion.obtenerLibrosPorIdioma(criterio);
-            } 
+            }
         }
 
         if (librosFiltrados != null && !librosFiltrados.isEmpty()) {

@@ -94,9 +94,14 @@ public class AlquilarLibros extends JFrame {
 
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
+            public void actionPerformed(ActionEvent e) {
+                MenuPrincipal menuPrincipal = new MenuPrincipal();
+                menuPrincipal.setVisible(true);
+                dispose(); // Cierra la ventana actual (AlquilarLibros)
+            }
         });
+        btnRegresar.setBounds(38, 396, 93, 23);
+        contentPane.add(btnRegresar);
         btnRegresar.setBounds(38, 396, 93, 23);
         contentPane.add(btnRegresar);
 
@@ -105,8 +110,16 @@ public class AlquilarLibros extends JFrame {
         contentPane.add(btnAlquilar);
 
         JButton btnRegistroDeClientes = new JButton("Registro de Clientes");
-        btnRegistroDeClientes.setBounds(547, 362, 130, 23);
+        btnRegistroDeClientes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RegistrosDeClientes registrosDeClientes = new RegistrosDeClientes();
+                registrosDeClientes.setVisible(true);
+                dispose(); // Cierra la ventana actual (AlquilarLibros)
+            }
+        });
+        btnRegistroDeClientes.setBounds(534, 362, 143, 23);
         contentPane.add(btnRegistroDeClientes);
+
         
         JLabel lblNewLabel = new JLabel("");
         lblNewLabel.setIcon(new ImageIcon("C:\\mysql-connector-j-9.0.0\\remix-digital-geografia-vector-fondo-globo-educacion-disruptiva_53876-140586.jpg"));

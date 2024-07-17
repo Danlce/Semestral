@@ -201,6 +201,13 @@ public class AgregarLibros extends JFrame {
         contentPane.add(textField_5);
 
         JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cierra la ventana actual de AgregarLibros
+                Catalogo catalogo = new Catalogo(); // Crea una nueva instancia del catálogo
+                catalogo.setVisible(true); // Muestra la ventana del catálogo
+            }
+        });
         btnRegresar.setBounds(36, 330, 93, 23);
         contentPane.add(btnRegresar);
 
